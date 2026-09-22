@@ -1,0 +1,968 @@
+/* NexFlow CRM Unified Inbox Styles (Namespaced under .inbox-page, .inbox-layout, .inbox-nav, .inbox-list, .inbox-thread, & .inbox-composer) */
+
+.inbox-page {
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.inbox-page *,
+.inbox-page *::before,
+.inbox-page *::after {
+  box-sizing: border-box;
+}
+
+/* =====================================================
+   LAYOUT STATE: No conversation selected (default)
+   Two-panel layout: Nav + Conversation List (expanded)
+   ===================================================== */
+.inbox-page--no-selection .inbox-thread-panel {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+.inbox-page--no-selection .inbox-list-panel {
+  flex: 1 1 auto;
+  width: auto;
+  border-right: none;
+}
+
+/* =====================================================
+   LAYOUT STATE: Conversation open (3-panel)
+   Nav + Conversation List + Message Thread (expanded)
+   ===================================================== */
+.inbox-page--conversation-open .inbox-thread-panel {
+  display: flex;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.inbox-page--conversation-open .inbox-list-panel {
+  flex: 0 0 320px;
+  width: 320px;
+  border-right: 1px solid var(--border-divider);
+}
+
+/* Subtle hint at top of conversation list when nothing is selected */
+.inbox-select-hint {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  padding: 8px 14px 6px;
+  border-bottom: 1px solid var(--border-divider);
+  background-color: #FAFAFA;
+  letter-spacing: 0.01em;
+}
+
+/* Back/Close thread button in message-thread header */
+.inbox-close-thread-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-card);
+  background-color: #F2F4F7;
+  color: var(--text-secondary);
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  line-height: 1;
+}
+
+.inbox-close-thread-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+
+/* Page Header */
+.inbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.inbox-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.inbox-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.inbox-header-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-heading);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.inbox-unread-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2563EB;
+  background-color: #EFF6FF;
+  padding: 2px 9px;
+  border-radius: var(--radius-full);
+}
+
+.inbox-header-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.inbox-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Three-Panel Desktop Container */
+.inbox-container {
+  display: flex;
+  height: calc(100vh - 165px);
+  min-height: 560px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  min-width: 0;
+}
+
+/* Panel 1 — Left Navigation */
+.inbox-nav {
+  flex: 0 0 220px;
+  width: 220px;
+  border-right: 1px solid var(--border-divider);
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  background-color: #F9FAFB;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.inbox-section-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 14px 0 6px;
+}
+
+.inbox-folder-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  font-size: 12.5px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.inbox-folder-item:hover {
+  background-color: #F2F4F7;
+  color: var(--text-heading);
+}
+
+.inbox-folder-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.inbox-folder-count {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background-color: rgba(16, 24, 40, 0.06);
+}
+
+.inbox-folder-item.active .inbox-folder-count {
+  background-color: var(--primary);
+  color: #FFFFFF;
+}
+
+.inbox-agent-status {
+  margin-top: auto;
+  padding: 10px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.inbox-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #12B76A;
+}
+
+/* Panel 2 — Conversation List */
+.inbox-list-panel {
+  flex: 0 0 350px;
+  width: 350px;
+  border-right: 1px solid var(--border-divider);
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.inbox-list-header {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-divider);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: #FFFFFF;
+}
+
+.inbox-list-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.inbox-list-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.inbox-conv-item {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-divider);
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  position: relative;
+  transition: background-color 0.15s ease;
+}
+
+.inbox-conv-item:hover {
+  background-color: #F9FAFB;
+}
+
+.inbox-conv-item.active {
+  background-color: #EFF6FF;
+  border-left: 3px solid var(--primary);
+}
+
+.inbox-unread-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #2563EB;
+  position: absolute;
+  top: 14px;
+  right: 12px;
+}
+
+.inbox-star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 0;
+  font-size: 13px;
+}
+
+.inbox-star-btn.starred {
+  color: #F79009;
+}
+
+/* Panel 3 — Active Conversation Thread */
+.inbox-thread-panel {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+}
+
+.inbox-thread-header {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-card);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 14px;
+  background-color: #FFFFFF;
+  flex-shrink: 0;
+  min-height: 64px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 5;
+}
+
+/* Left Section: Back button + Avatar + Contact Identity */
+.inbox-thread-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 240px;
+  max-width: 100%;
+}
+
+.inbox-thread-contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  margin: -4px -6px;
+  border-radius: var(--radius-md);
+  transition: background-color 0.15s ease;
+  min-width: 0;
+  max-width: 100%;
+  text-align: left;
+  flex: 1 1 auto;
+}
+
+.inbox-thread-contact-btn:hover {
+  background-color: #F2F4F7;
+}
+
+.inbox-thread-contact-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.inbox-thread-avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.inbox-thread-contact-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-align: left;
+  gap: 1px;
+}
+
+.inbox-thread-contact-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.inbox-thread-company-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.inbox-thread-company-name .inbox-empty-text {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.inbox-thread-channel-info {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.inbox-thread-channel-info span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right Section: Actions & Status dropdown */
+.inbox-thread-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px 10px;
+  flex-wrap: wrap;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.inbox-thread-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.inbox-thread-header-actions .btn,
+.inbox-thread-header-actions .btn-xs,
+.inbox-thread-header-actions a.btn {
+  height: 28px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 9px;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.inbox-thread-status-select {
+  height: 28px;
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 0 24px 0 8px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-card);
+  background-color: #FFFFFF;
+  color: var(--text-heading);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.inbox-thread-status-select:hover {
+  border-color: var(--primary);
+}
+
+.inbox-thread-status-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.inbox-thread-snooze-chip {
+  font-size: 11px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+  background-color: #FEF0C7;
+  color: #B54708;
+  border: 1px solid #FEDF89;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  font-weight: 500;
+  box-sizing: border-box;
+  line-height: 1;
+}
+
+
+.inbox-thread-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #FAFAFA;
+}
+
+/* Email Card Format */
+.inbox-email-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-xs);
+}
+
+.inbox-email-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+/* WhatsApp Bubble Format */
+.inbox-whatsapp-bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  box-shadow: var(--shadow-xs);
+}
+
+.inbox-whatsapp-bubble.incoming {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E7EC;
+  align-self: flex-start;
+  border-bottom-left-radius: 2px;
+}
+
+.inbox-whatsapp-bubble.outgoing {
+  background-color: #DCF8C6;
+  color: #101828;
+  align-self: flex-end;
+  border-bottom-right-radius: 2px;
+}
+
+/* Internal Note Format */
+.inbox-internal-note-card {
+  background-color: #FEF0C7;
+  border: 1px solid #F79009;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-size: 12.5px;
+  color: #7A2E0E;
+}
+
+/* Sticky Reply Composer */
+.inbox-reply-composer {
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid var(--border-card);
+  padding: 12px 16px;
+  background-color: #FFFFFF;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.inbox-composer-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.inbox-composer-tab {
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background-color: #F2F4F7;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.inbox-composer-tab.active {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+/* .inbox-context-panel has been removed from the static layout.
+   Contact Context is now on-demand only via #inboxContactDrawer.
+   See .inbox-contact-drawer and .inbox-contact-panel below. */
+
+/* Compose Drawer (.inbox-compose-drawer) */
+.inbox-compose-drawer {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(16, 24, 40, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 95;
+  display: none;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.inbox-compose-drawer.show {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.inbox-compose-panel {
+  width: 460px;
+  max-width: calc(100vw - 32px);
+  height: 100%;
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 96;
+  border-left: 1px solid var(--border-card);
+}
+
+.inbox-compose-drawer.show .inbox-compose-panel {
+  transform: translateX(0);
+}
+
+.inbox-filter-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 340px;
+  max-width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-xl);
+  z-index: 98;
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  flex-direction: column;
+  border-left: 1px solid var(--border-card);
+}
+
+.inbox-filter-drawer.show {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* =================================================================
+   SPLIT CONVERSATION ROW — Contact Zone + Conversation Zone
+   ================================================================= */
+
+/* The row is now a vertical stack: contact zone on top, conv zone below */
+.inbox-conv-item {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  cursor: default; /* row itself is not interactive */
+}
+
+/* Contact zone: avatar + name + company — opens Contact Context */
+.inbox-contact-zone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px 6px;
+  cursor: pointer;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transition: background-color 0.13s ease;
+  outline: none;
+}
+
+.inbox-contact-zone:hover,
+.inbox-contact-zone:focus-visible {
+  background-color: #EEF2FF;
+}
+
+.inbox-contact-zone:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--primary);
+}
+
+.inbox-contact-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.inbox-contact-name {
+  color: var(--text-heading);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.inbox-contact-company {
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+/* Conversation zone: subject + preview + priority — opens chat */
+.inbox-conv-zone {
+  padding: 2px 14px 12px 14px;
+  cursor: pointer;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  outline: none;
+  transition: background-color 0.13s ease;
+}
+
+.inbox-conv-zone:hover,
+.inbox-conv-zone:focus-visible {
+  background-color: #F0F9FF;
+}
+
+.inbox-conv-zone:focus-visible {
+  box-shadow: inset 0 0 0 2px #0284C7;
+}
+
+/* Active conversation row highlights both zones */
+.inbox-conv-item.active .inbox-contact-zone {
+  background-color: #E8EFFF;
+}
+
+.inbox-conv-item.active .inbox-conv-zone {
+  background-color: #EFF6FF;
+}
+
+
+
+/* =================================================================
+   STANDALONE CONTACT CONTEXT DRAWER
+   ================================================================= */
+
+.inbox-contact-drawer {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(16, 24, 40, 0.35);
+  backdrop-filter: blur(2px);
+  z-index: 97;
+  display: none;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.inbox-contact-drawer.show {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.inbox-contact-panel {
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  height: 100%;
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  border-left: 1px solid var(--border-card);
+}
+
+.inbox-contact-drawer.show .inbox-contact-panel {
+  transform: translateX(0);
+}
+
+.inbox-contact-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-card);
+  flex-shrink: 0;
+}
+
+.inbox-contact-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+/* =================================================================
+   CONTACT CONTEXT CONTENT STYLES (.inbox-cctx-*)
+   ================================================================= */
+
+.inbox-cctx-profile {
+  text-align: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-divider);
+  margin-bottom: 14px;
+}
+
+.inbox-cctx-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 2px;
+}
+
+.inbox-cctx-title {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.inbox-cctx-company {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.inbox-cctx-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.inbox-cctx-section {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-divider);
+}
+
+.inbox-cctx-section:last-of-type {
+  border-bottom: none;
+}
+
+.inbox-cctx-section-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.inbox-cctx-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.inbox-cctx-label {
+  flex: 0 0 90px;
+  color: var(--text-muted);
+  font-weight: 500;
+  padding-top: 1px;
+}
+
+.inbox-cctx-val {
+  flex: 1;
+  color: var(--text-body);
+  word-break: break-word;
+}
+
+.inbox-cctx-actions {
+  padding-top: 14px;
+  border-top: 1px solid var(--border-divider);
+}
+
+/* =================================================================
+   avatar-xl size (used in cctx profile)
+   ================================================================= */
+.avatar.avatar-xl {
+  width: 60px;
+  height: 60px;
+  font-size: 22px;
+}
+
+/* RESPONSIVE LAYOUT BREAKPOINTS */
+@media (max-width: 1024px) {
+  .inbox-nav {
+    display: none;
+  }
+  /* No .inbox-context-panel references needed — element has been removed. */
+  .inbox-page--conversation-open .inbox-list-panel {
+    flex: 0 0 260px;
+    width: 260px;
+  }
+  .inbox-page--no-selection .inbox-list-panel {
+    flex: 1 1 auto;
+    width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .inbox-container {
+    height: calc(100vh - 150px);
+  }
+  /* Mobile default: show only list */
+  .inbox-page--no-selection .inbox-list-panel,
+  .inbox-page--conversation-open .inbox-list-panel {
+    flex: 1;
+    width: 100%;
+  }
+  /* Thread hidden by default on mobile; shown via JS .mobile-show */
+  .inbox-thread-panel {
+    display: none;
+  }
+  .inbox-thread-panel.mobile-show {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    width: 100%;
+  }
+  .inbox-compose-panel, .inbox-filter-drawer {
+    width: 100%;
+    max-width: 100%;
+  }
+  .inbox-thread-header {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .inbox-thread-header-actions {
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .inbox-thread-actions-group {
+    justify-content: flex-start;
+  }
+}
+

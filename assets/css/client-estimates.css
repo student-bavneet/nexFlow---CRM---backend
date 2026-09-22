@@ -1,0 +1,112 @@
+﻿/* ==========================================================================
+   NexFlow CRM — Client Portal Estimates Page Styles
+   Scoped specifically for client-estimates.php
+   ========================================================================== */
+
+/* Estimates Grid Layout (if card view used) */
+.client-estimates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.client-estimate-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.client-estimate-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+}
+
+.client-estimate-id {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748B;
+  background-color: #F1F5F9;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  display: inline-block;
+}
+
+/* Pricing Summary Box */
+.client-estimate-pricing-box {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.client-estimate-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 13px;
+  color: #475569;
+}
+
+.client-estimate-summary-row.total {
+  border-top: 1px dashed #CBD5E1;
+  margin-top: 6px;
+  padding-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+/* Terms Box */
+.client-estimate-terms-box {
+  background-color: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 12.5px;
+  color: #1E40AF;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+/* Timeline / Activity items */
+.client-estimate-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.client-estimate-timeline-item {
+  display: flex;
+  gap: 10px;
+  font-size: 12.5px;
+  align-items: flex-start;
+}
+
+.client-estimate-timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2563EB;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+/* Mobile responsive fixes */
+@media (max-width: 640px) {
+  .client-estimates-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

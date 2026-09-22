@@ -1,0 +1,24 @@
+# Environment / secrets
+.env
+.env.*
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Editor / OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Runtime
+cache/
+sessions/
+
+# Uploaded runtime files
+uploads/*
+!uploads/.gitkeep

@@ -1,0 +1,1044 @@
+﻿/* ==========================================================================
+   NexFlow CRM — Expenses Management Stylesheet
+   Scope: .expenses-page, .expenses-* classes
+   ========================================================================== */
+
+.expenses-page {
+  padding-bottom: 60px;
+}
+
+/* Page Header */
+.expenses-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.expenses-header-title-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.expenses-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.expenses-header-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.expenses-total-badge {
+  font-size: 12px;
+  font-weight: 600;
+  background-color: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-card);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.expenses-header-subtitle {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  margin: 4px 0 0 0;
+}
+
+.expenses-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Summary KPI Cards Grid (5-Card Row) */
+.expenses-summary-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.expenses-summary-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.expenses-summary-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary, #2563EB);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.expenses-summary-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.expenses-summary-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.expenses-summary-val {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.1;
+}
+
+.expenses-summary-lbl {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 3px;
+  white-space: nowrap;
+}
+
+/* Toolbar & Single Row Controls */
+.expenses-toolbar {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.expenses-toolbar-row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.expenses-controls-left,
+.expenses-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Filter Popover Panel */
+.expenses-filter-popover {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  width: 320px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  z-index: 1040;
+  overflow: hidden;
+}
+
+.expenses-filter-popover.show {
+  display: block;
+}
+
+.expenses-filter-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-divider);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #F8FAFC;
+}
+
+.expenses-filter-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-clear-filter-text {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.filter-popover-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+
+/* Expenses Table Card */
+.expenses-table-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.expenses-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.expenses-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.expenses-table th {
+  padding: 12px 14px;
+  background-color: #F8FAFC;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid var(--border-divider);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.expenses-table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--border-divider);
+  color: var(--text-body);
+  vertical-align: middle;
+}
+
+.expenses-table tr:hover td {
+  background-color: #F8FAFC;
+}
+
+.expenses-table tr.selected td {
+  background-color: #EFF6FF;
+}
+
+/* Badges for Status & Categories */
+.badge-exp {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.badge-exp.badge-billable { background-color: #EFF6FF; color: #1D4ED8; }
+.badge-exp.badge-nonbillable { background-color: #F1F5F9; color: #475569; }
+.badge-exp.badge-notinvoiced { background-color: #FFFBEB; color: #B45309; }
+.badge-exp.badge-invoiced { background-color: #ECFDF5; color: #047857; }
+.badge-exp.badge-reimbursed { background-color: #ECFDF5; color: #047857; }
+
+.badge-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  background-color: #F8FAFC;
+  border: 1px solid var(--border-divider);
+  color: #334155;
+  white-space: nowrap;
+}
+
+/* Floating Row Actions Dropdown */
+.expenses-row-dropdown {
+  position: fixed;
+  z-index: 1050;
+  min-width: 180px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  padding: 5px 0;
+  display: none;
+}
+
+.expenses-row-dropdown.show {
+  display: block;
+}
+
+.expenses-row-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-heading);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+}
+
+.expenses-row-item:hover,
+.expenses-row-item:focus {
+  background-color: #F8FAFC;
+  color: var(--primary);
+  outline: none;
+}
+
+.expenses-row-item.danger {
+  color: #DC2626;
+}
+
+.expenses-row-item.danger:hover {
+  background-color: #FEF2F2;
+  color: #B91C1C;
+}
+
+.expenses-row-divider {
+  height: 1px;
+  background-color: var(--border-divider);
+  margin: 4px 0;
+}
+
+/* ==========================================================================
+   DETAILS DRAWER — Scoped to #expensesDrawer, mirrors Leads drawer
+   Self-contained: leads.css is NOT loaded on the expenses page, so all
+   drawer component classes must be defined here.
+   ========================================================================== */
+
+/* Overlay */
+#expensesDrawer.drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  justify-content: flex-end;
+}
+
+#expensesDrawer.drawer-overlay.show {
+  display: flex;
+}
+
+/* Panel */
+#expensesDrawer .drawer-content {
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  background-color: #FFFFFF;
+  box-shadow: -8px 0 32px rgba(15, 23, 42, 0.18);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  animation: expDrawerSlideIn 0.25s ease-out;
+  z-index: 1001;
+}
+
+@keyframes expDrawerSlideIn {
+  from { transform: translateX(100%); }
+  to  { transform: translateX(0); }
+}
+
+/* ------- STICKY HEADER ------- */
+#expensesDrawer .drawer-header {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 12px 16px 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-shrink: 0;
+  min-height: 64px;
+  box-sizing: border-box;
+}
+
+/* Left area: breadcrumb stacked above title */
+#expensesDrawer .exp-drawer-title-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+}
+
+#expensesDrawer .drawer-breadcrumb {
+  font-size: 11px;
+  font-weight: 500;
+  color: #94A3B8;
+  margin-bottom: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#expensesDrawer .drawer-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right area: one horizontal row of actions */
+#expensesDrawer .drawer-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+/* Badge inside the header actions row */
+#expensesDrawer .drawer-header-actions .badge-exp {
+  margin-right: 6px;
+  font-size: 11px;
+  padding: 3px 8px;
+}
+
+/* Icon-only ghost buttons: Edit & Three-dot */
+#expensesDrawer .btn-ghost.btn-xs {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: none;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  color: #64748B;
+  cursor: pointer;
+  transition: background-color 0.14s ease, color 0.14s ease;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+#expensesDrawer .btn-ghost.btn-xs:hover {
+  background-color: #F1F5F9;
+  color: #0F172A;
+}
+
+#expensesDrawer .btn-ghost.btn-xs:focus {
+  outline: none;
+}
+
+/* Close X button */
+#expensesDrawer .modal-close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  color: #64748B;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 2px;
+  transition: background-color 0.14s ease, color 0.14s ease;
+  flex-shrink: 0;
+}
+
+#expensesDrawer .modal-close-btn:hover {
+  background-color: #FEE2E2;
+  color: #DC2626;
+}
+
+/* Three-dot dropdown wrapper & menu */
+#expensesDrawer .drawer-dropdown-wrapper {
+  position: relative;
+}
+
+#expensesDrawer .drawer-header-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 25;
+  min-width: 210px;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 10px 25px -5px rgba(15,23,42,0.12), 0 4px 10px -5px rgba(15,23,42,0.06);
+  padding: 4px 0;
+}
+
+#expensesDrawer .drawer-header-menu.show {
+  display: block;
+}
+
+/* Dropdown items inside the three-dot menu */
+#expensesDrawer .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #1E293B;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+  box-sizing: border-box;
+}
+
+#expensesDrawer .dropdown-item:hover {
+  background-color: #F8FAFC;
+  color: #2563EB;
+}
+
+#expensesDrawer .dropdown-item.danger { color: #DC2626; }
+#expensesDrawer .dropdown-item.danger:hover { background-color: #FEF2F2; color: #B91C1C; }
+
+#expensesDrawer .dropdown-divider {
+  height: 1px;
+  background-color: #E5E7EB;
+  margin: 4px 0;
+}
+
+/* ------- STICKY TAB STRIP ------- */
+/* The key fix: must NOT look like browser buttons */
+#expensesDrawer .drawer-tabs-wrapper {
+  position: sticky;
+  top: 64px;         /* matches header min-height */
+  z-index: 12;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+#expensesDrawer .drawer-tabs {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+
+#expensesDrawer .drawer-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tab button — completely reset browser styles, then apply nav-tab design */
+#expensesDrawer .drawer-tab {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
+  /* Tab layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  height: 44px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  color: #64748B;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.15s ease;
+  /* The active underline lives on the bottom border */
+  border-bottom: 2px solid transparent !important;
+  margin-bottom: -1px;  /* overlay the wrapper's border-bottom */
+  outline: none;
+}
+
+#expensesDrawer .drawer-tab:hover {
+  color: #0F172A;
+  background-color: transparent !important;
+}
+
+#expensesDrawer .drawer-tab:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+
+#expensesDrawer .drawer-tab:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: -3px;
+}
+
+#expensesDrawer .drawer-tab.active {
+  color: #2563EB !important;
+  font-weight: 600;
+  border-bottom-color: #2563EB !important;
+  background-color: transparent !important;
+}
+
+/* ------- SCROLLABLE BODY ------- */
+#expensesDrawer .drawer-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+  scroll-behavior: smooth;
+}
+
+/* ------- QUICK ACTION BUTTONS (3-col, like lead drawer) ------- */
+#expensesDrawer .exp-quick-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+#expensesDrawer .exp-quick-actions .btn {
+  width: 100%;
+  justify-content: center;
+  padding: 7px 6px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ------- KPI SUMMARY MINI-CARDS ------- */
+#expensesDrawer .exp-kpi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+#expensesDrawer .exp-kpi-card {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+#expensesDrawer .exp-kpi-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+#expensesDrawer .exp-kpi-value {
+  font-size: 21px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.1;
+}
+
+#expensesDrawer .exp-kpi-category {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-top: 4px;
+}
+
+/* ------- INFO CARD (details section) ------- */
+#expensesDrawer .drawer-info-card {
+  background-color: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+#expensesDrawer .drawer-info-card:last-child {
+  margin-bottom: 0;
+}
+
+#expensesDrawer .drawer-card-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+/* Each label+value row */
+#expensesDrawer .drawer-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 13px;
+}
+
+#expensesDrawer .drawer-detail-row:first-child { padding-top: 0; }
+#expensesDrawer .drawer-detail-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+#expensesDrawer .drawer-info-label {
+  color: #64748B;
+  font-size: 12.5px;
+  flex-shrink: 0;
+}
+
+#expensesDrawer .drawer-info-val {
+  font-weight: 500;
+  color: #0F172A;
+  font-size: 13px;
+  text-align: right;
+  word-break: break-word;
+  max-width: 58%;
+}
+
+#expensesDrawer .drawer-info-val.monospace {
+  font-family: ui-monospace, 'Cascadia Code', 'Courier New', monospace;
+  font-size: 11.5px;
+}
+
+/* ------- ACTIVITY TIMELINE ------- */
+#expensesDrawer .timeline-list {
+  position: relative;
+  padding-left: 22px;
+  margin-top: 4px;
+}
+
+#expensesDrawer .timeline-list::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 7px;
+  width: 2px;
+  background-color: #E5E7EB;
+  border-radius: 2px;
+}
+
+#expensesDrawer .timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+#expensesDrawer .timeline-item:last-child { margin-bottom: 0; }
+
+#expensesDrawer .timeline-dot {
+  position: absolute;
+  left: -22px;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #EFF6FF;
+  border: 2px solid #2563EB;
+  box-sizing: border-box;
+}
+
+#expensesDrawer .timeline-content {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+#expensesDrawer .timeline-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  gap: 8px;
+}
+
+#expensesDrawer .timeline-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+#expensesDrawer .timeline-time {
+  font-size: 11px;
+  color: #94A3B8;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#expensesDrawer .timeline-desc {
+  font-size: 12.5px;
+  color: #475569;
+  line-height: 1.45;
+}
+
+#expensesDrawer .timeline-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+/* ------- RECEIPT FILE CARD ------- */
+#expensesDrawer .exp-receipt-file-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+#expensesDrawer .exp-receipt-icon {
+  width: 44px;
+  height: 44px;
+  background: #EFF6FF;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+#expensesDrawer .exp-receipt-info { flex: 1; min-width: 0; }
+
+#expensesDrawer .exp-receipt-filename {
+  font-weight: 600;
+  color: #0F172A;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#expensesDrawer .exp-receipt-subtext {
+  font-size: 11.5px;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+
+#expensesDrawer .exp-receipt-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ------- EMPTY STATES ------- */
+#expensesDrawer .exp-empty-state {
+  text-align: center;
+  padding: 48px 20px;
+}
+
+#expensesDrawer .exp-empty-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #F1F5F9;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px auto;
+}
+
+#expensesDrawer .exp-empty-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0 0 6px 0;
+}
+
+#expensesDrawer .exp-empty-desc {
+  font-size: 13px;
+  color: #94A3B8;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+/* ------- RESPONSIVE ------- */
+@media (max-width: 768px) {
+  #expensesDrawer .drawer-content { max-width: 100%; width: 100%; }
+  #expensesDrawer .exp-quick-actions { grid-template-columns: 1fr 1fr; }
+  #expensesDrawer .exp-kpi-grid { grid-template-columns: 1fr; }
+  #expensesDrawer .drawer-title { font-size: 14px; }
+}
+
+
+/* ==========================================================================
+   TOP-LEVEL MODALS & CHILD ACTION MODALS
+   ========================================================================== */
+.expenses-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 1100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.expenses-modal-overlay.show {
+  display: flex;
+}
+
+.expenses-modal-card {
+  width: 100%;
+  max-width: 560px;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+  animation: expModalFadeIn 0.2s ease-out;
+}
+
+@keyframes expModalFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.expenses-modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-divider);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.expenses-modal-title {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.expenses-modal-body {
+  padding: 22px 24px;
+  max-height: 72vh;
+  overflow-y: auto;
+}
+
+.expenses-modal-footer {
+  padding: 14px 24px;
+  border-top: 1px solid var(--border-divider);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  background-color: #F8FAFC;
+}
+
+/* Toast Notifications */
+.expenses-toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1200;
+  pointer-events: none;
+}
+
+.expenses-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background-color: #0F172A;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+  animation: expToastSlide 0.25s ease-out;
+}
+
+@keyframes expToastSlide {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.expenses-toast.success { border-left: 4px solid #10B981; }
+.expenses-toast.info { border-left: 4px solid #2563EB; }
+.expenses-toast.warning { border-left: 4px solid #F59E0B; }
+.expenses-toast.error { border-left: 4px solid #EF4444; }
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .expenses-summary-bar {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .expenses-summary-bar {
+    grid-template-columns: 1fr;
+  }
+  .expenses-drawer-panel {
+    width: 100vw;
+  }
+  .expenses-modal-card {
+    max-width: calc(100vw - 24px);
+  }
+}
+

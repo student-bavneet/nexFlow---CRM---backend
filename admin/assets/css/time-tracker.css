@@ -1,0 +1,569 @@
+﻿/* ==========================================================================
+   NexFlow CRM — Global Time Tracker & Timesheets Stylesheet
+   ========================================================================== */
+
+/* Topbar Header Active Indicator */
+.topbar-timer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  transition: all 0.15s ease;
+}
+ 
+.topbar-timer-btn.active {
+  background-color: #ECFDF5 !important;
+  color: #047857 !important;
+  border: 1px solid #A7F3D0;
+}
+
+.topbar-timer-active-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.timer-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: timerPulse 1.6s infinite;
+}
+
+@keyframes timerPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.timer-active-digits {
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   TIME TRACKER ANCHORED POPOVER (z-index: 1060)
+   ========================================================================== */
+.time-tracker-popover {
+  position: fixed;
+  z-index: 1060;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  box-shadow: 0 14px 35px -5px rgba(0, 0, 0, 0.15), 0 8px 12px -6px rgba(0, 0, 0, 0.05);
+  display: none;
+  overflow: hidden;
+  animation: timerPopoverFade 0.18s ease-out;
+}
+
+@keyframes timerPopoverFade {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.time-tracker-popover.show {
+  display: block;
+}
+
+.time-tracker-popover-content {
+  padding: 20px;
+}
+
+/* Empty State */
+.timer-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.timer-empty-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #EFF6FF;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.timer-empty-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0 0 4px 0;
+}
+
+.timer-empty-desc {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+
+/* Running State Popover */
+.timer-running-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.timer-running-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timer-live-clock {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-heading);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  margin: 2px 0 6px 0;
+}
+
+.timer-running-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0 0 3px 0;
+}
+
+.timer-running-sub {
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.timer-running-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   TIMESHEETS DRAWER (width: 580px, z-index: 1010)
+   ========================================================================== */
+.timesheets-drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+}
+
+.timesheets-drawer-overlay.show {
+  display: block;
+}
+
+.timesheets-drawer-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 580px;
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+  z-index: 1010;
+  animation: tsDrawerSlideIn 0.25s ease-out;
+}
+
+@keyframes tsDrawerSlideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.timesheets-drawer-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-divider);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  background-color: #FFFFFF;
+}
+
+.timesheets-drawer-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.timesheets-drawer-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 3px 0 0 0;
+}
+
+.timesheets-drawer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timesheets-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+}
+
+.timesheets-drawer-footer {
+  padding: 14px 24px;
+  border-top: 1px solid var(--border-divider);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  background-color: #F8FAFC;
+}
+
+/* Metric Cards Grid */
+.timesheet-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.timesheet-metric-card {
+  background-color: #F8FAFC;
+  border: 1px solid var(--border-divider);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.timesheet-metric-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.timesheet-metric-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-top: 3px;
+}
+
+/* Filters Row */
+.timesheets-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+/* Entries Container */
+.timesheets-entries-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.timesheet-entry-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-divider);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all 0.15s ease;
+}
+
+.timesheet-entry-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.timesheet-entry-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.timesheet-entry-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0 0 2px 0;
+}
+
+.timesheet-entry-meta {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timesheet-entry-duration {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.timesheet-duration-digits {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+/* ==========================================================================
+   TOP-LEVEL MODALS (z-index: 1100)
+   ========================================================================== */
+.timer-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 1100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.timer-modal-overlay.show {
+  display: flex;
+}
+
+.timer-modal-card {
+  width: 100%;
+  max-width: 500px;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+  animation: timerModalFadeIn 0.2s ease-out;
+}
+
+@keyframes timerModalFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.timer-modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-divider);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timer-modal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.timer-modal-body {
+  padding: 20px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.timer-modal-footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border-divider);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  background-color: #F8FAFC;
+}
+
+/* Timesheet Entry Three-Dot Action Button */
+.ts-row-menu-btn {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-card, #FFFFFF);
+  border: 1px solid var(--border-card, #E2E8F0);
+  border-radius: var(--radius-sm, 6px);
+  color: var(--text-secondary, #64748B);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.ts-row-menu-btn:hover {
+  background-color: #F8FAFC;
+  border-color: #CBD5E1;
+  color: var(--text-heading, #1E293B);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.ts-row-menu-btn.active,
+.ts-row-menu-btn:focus-visible {
+  background-color: #EFF6FF;
+  border-color: #93C5FD;
+  color: #2563EB;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* Action Dropdown Menu */
+.timesheet-row-dropdown {
+  position: fixed;
+  z-index: 1200;
+  width: 200px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card, #E2E8F0);
+  border-radius: var(--radius-md, 8px);
+  box-shadow: 0 12px 28px -5px rgba(15, 23, 42, 0.15), 0 4px 6px -2px rgba(15, 23, 42, 0.05);
+  padding: 6px 0;
+  display: none;
+  overflow: hidden;
+  animation: tsDropdownFade 0.15s ease-out;
+}
+
+@keyframes tsDropdownFade {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.timesheet-row-dropdown.show {
+  display: block;
+}
+
+/* Dropdown Menu Item Styling */
+.ts-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-heading, #1E293B);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ts-dropdown-item svg {
+  color: var(--text-muted, #64748B);
+  transition: color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.ts-dropdown-item:hover {
+  background-color: #F1F5F9;
+  color: var(--primary, #2563EB);
+}
+
+.ts-dropdown-item:hover svg {
+  color: var(--primary, #2563EB);
+}
+
+/* Destructive Delete Item */
+.ts-dropdown-item.danger {
+  color: #EF4444;
+}
+
+.ts-dropdown-item.danger svg {
+  color: #EF4444;
+}
+
+.ts-dropdown-item.danger:hover {
+  background-color: #FEF2F2;
+  color: #DC2626;
+}
+
+.ts-dropdown-item.danger:hover svg {
+  color: #DC2626;
+}
+
+/* Menu Divider */
+.ts-dropdown-divider {
+  height: 1px;
+  background-color: var(--border-divider, #E2E8F0);
+  margin: 5px 0;
+}
+
+/* Toast Container */
+.timer-toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1200;
+  pointer-events: none;
+}
+
+.timer-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background-color: #0F172A;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+  animation: timerToastSlide 0.25s ease-out;
+}
+
+@keyframes timerToastSlide {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.timer-toast.success { border-left: 4px solid #10B981; }
+.timer-toast.info { border-left: 4px solid #2563EB; }
+.timer-toast.warning { border-left: 4px solid #F59E0B; }
+.timer-toast.error { border-left: 4px solid #EF4444; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .timesheets-drawer-panel {
+    width: 100vw;
+  }
+  .timesheet-metrics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .time-tracker-popover {
+    left: 16px !important;
+    right: 16px !important;
+    width: auto !important;
+  }
+}
+

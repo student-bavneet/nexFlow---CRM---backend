@@ -1,0 +1,1198 @@
+﻿/* NexFlow CRM Softphone & Communication Styles (Namespaced & Scoped) */
+
+/* Entry Topbar Icon */
+.topbar-phone-btn {
+  position: relative;
+  padding: 6px 8px;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.topbar-phone-btn.active-call {
+  color: #12B76A !important;
+  animation: softphone-pulse-ring 2s infinite;
+}
+
+@keyframes softphone-pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(18, 183, 106, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(18, 183, 106, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(18, 183, 106, 0); }
+}
+
+/* Softphone Drawer Container */
+.softphone-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(16, 24, 40, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 100;
+  display: none;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.softphone-overlay.show {
+  display: flex;
+  opacity: 1;
+}
+
+.softphone-panel {
+  width: 420px;
+  max-width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 101;
+  border-left: 1px solid var(--border-card);
+}
+
+.softphone-overlay.show .softphone-panel {
+  transform: translateX(0);
+}
+
+/* Softphone Header & Availability Bar */
+.softphone-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.softphone-title-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.softphone-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background-color: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.softphone-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.softphone-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.agent-status-bar {
+  padding: 10px 18px;
+  background-color: #F9FAFB;
+  border-bottom: 1px solid var(--border-divider);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.agent-status-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.agent-status-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.agent-status-select {
+  border: 1px solid var(--border-input);
+  background-color: #FFFFFF;
+  border-radius: var(--radius-full);
+  padding: 3px 24px 3px 24px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-heading);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%3C667085' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.agent-status-dot {
+  position: absolute;
+  left: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.agent-status-dot.available { background-color: #12B76A; }
+.agent-status-dot.busy { background-color: #F04438; }
+.agent-status-dot.away { background-color: #F79009; }
+.agent-status-dot.offline { background-color: #98A2B3; }
+
+/* Softphone Tabs */
+.softphone-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-card);
+  background-color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.softphone-tab {
+  flex: 1;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.softphone-tab:hover { color: var(--primary); }
+.softphone-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  font-weight: 600;
+}
+
+/* Softphone Body & Views */
+.softphone-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.softphone-view {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+}
+
+.softphone-view.active { display: flex; }
+
+/* Selected Contact Card */
+.selected-contact-card {
+  background-color: #F9FAFB;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+/* Search Box */
+.softphone-search-box {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.contact-search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 20;
+  display: none;
+}
+
+.contact-search-results.show { display: block; }
+
+.search-result-item {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-divider);
+  cursor: pointer;
+}
+
+.search-result-item:hover { background-color: #F9FAFB; }
+
+/* Phone Display & Dialpad */
+.phone-input-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.country-select {
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-md);
+  height: 40px;
+  padding: 0 8px;
+  font-size: 13px;
+  background-color: #FFFFFF;
+  color: var(--text-heading);
+  outline: none;
+}
+
+.phone-display-input {
+  flex: 1;
+  height: 40px;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-md);
+  padding: 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-heading);
+  outline: none;
+}
+
+.dialpad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.dialpad-btn {
+  height: 48px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-card);
+  background-color: #F9FAFB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.dialpad-btn:hover {
+  background-color: #EFF4FF;
+  border-color: #BFDBFE;
+}
+
+.dialpad-num {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-heading);
+  line-height: 1;
+}
+
+.dialpad-sub {
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+}
+
+.dialpad-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.call-btn-large {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #12B76A;
+  color: #FFFFFF;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(18, 183, 106, 0.3);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.call-btn-large:hover { background-color: #0E9F5D; transform: scale(1.05); }
+
+.end-call-btn-large {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #F04438;
+  color: #FFFFFF;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(240, 68, 56, 0.3);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.end-call-btn-large:hover { background-color: #D92D20; transform: scale(1.05); }
+
+/* Connected Call Screen */
+.call-active-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.call-avatar-large {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #FFFFFF;
+  box-shadow: var(--shadow-md);
+}
+
+.call-avatar-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid #12B76A;
+  animation: green-ring-pulse 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes green-ring-pulse {
+  0% { transform: scale(0.96); opacity: 0.8; }
+  50% { transform: scale(1.06); opacity: 0.3; }
+  100% { transform: scale(0.96); opacity: 0.8; }
+}
+
+.call-contact-name { font-size: 18px; font-weight: 700; color: var(--text-heading); }
+.call-contact-company { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+.call-contact-phone { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+.call-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.call-status-tag.calling { background-color: #EFF6FF; color: #2563EB; }
+.call-status-tag.connected { background-color: #F0FDF4; color: #059669; }
+.call-status-tag.on-hold { background-color: #FFF7ED; color: #C2410C; }
+
+.status-indicator-dot { width: 6px; height: 6px; border-radius: 50%; background-color: currentColor; }
+
+.call-timer {
+  font-size: 24px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-heading);
+  margin-top: 8px;
+}
+
+.in-call-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+  width: 100%;
+}
+
+.in-call-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.in-call-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #F2F4F7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-heading);
+  transition: all 0.15s ease;
+}
+
+.in-call-btn:hover .in-call-icon-circle { background-color: #E4E7EC; }
+.in-call-btn.active .in-call-icon-circle { background-color: var(--primary-light); color: var(--primary); border: 1px solid #BFDBFE; }
+
+.call-notes-details {
+  width: 100%;
+  background-color: #F9FAFB;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  text-align: left;
+  margin-top: 8px;
+}
+
+.call-notes-summary {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.call-notes-body {
+  padding: 10px 12px;
+  border-top: 1px solid var(--border-divider);
+}
+
+/* Floating Active Call Card */
+.floating-call-bar {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #FFFFFF;
+  color: var(--text-heading);
+  border-radius: var(--radius-lg);
+  padding: 10px 16px;
+  display: none;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-xl);
+  z-index: 95;
+  border: 1px solid var(--border-card);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.floating-call-bar:hover {
+  box-shadow: 0 12px 24px -4px rgba(16, 24, 40, 0.18);
+  transform: translateY(-2px);
+}
+
+.floating-call-bar.show { display: flex; }
+
+.floating-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #12B76A;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 0 rgba(18, 183, 106, 0.4);
+  animation: green-dot-pulse 1.8s infinite;
+}
+
+@keyframes green-dot-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(18, 183, 106, 0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(18, 183, 106, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(18, 183, 106, 0); }
+}
+
+.floating-call-info { display: flex; align-items: center; gap: 10px; }
+.floating-call-name { font-size: 13px; font-weight: 600; color: var(--text-heading); max-width: 130px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.floating-call-status-text { font-size: 11px; font-weight: 500; color: var(--text-secondary); }
+.floating-call-timer { font-size: 12px; color: var(--primary); font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 1px; }
+
+.floating-call-actions { display: flex; align-items: center; gap: 6px; }
+
+.floating-action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border-card);
+  background-color: #F9FAFB;
+  color: var(--text-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.floating-end-btn { background-color: #F04438; color: #FFFFFF; border: none; }
+.floating-end-btn:hover { background-color: #D92D20; }
+
+/* INCOMING CALL FLOATING CARD (FIXED & NAMESPACED) */
+.softphone-incoming-card {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 380px;
+  max-width: 90vw;
+  background-color: #FFFFFF;
+  color: var(--text-heading);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: 0 20px 25px -5px rgba(16, 24, 40, 0.2), 0 8px 10px -6px rgba(16, 24, 40, 0.1);
+  border: 1px solid var(--border-card);
+  z-index: 110;
+  display: none !important;
+  flex-direction: column;
+  gap: 12px;
+  animation: softphone-slide-up 0.25s ease-out;
+}
+
+.softphone-incoming-card.show {
+  display: flex !important;
+}
+
+@keyframes softphone-slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.softphone-incoming-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #12B76A;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.softphone-incoming-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.softphone-incoming-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.softphone-accept-btn {
+  flex: 1;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: #12B76A;
+  color: #FFFFFF;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.softphone-accept-btn:hover { background-color: #0E9F5D; }
+
+.softphone-decline-btn {
+  flex: 1;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: #F04438;
+  color: #FFFFFF;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.softphone-decline-btn:hover { background-color: #D92D20; }
+
+/* RECENT CALLS LIST (NAMESPACED & SCOPED) */
+.softphone-filter-chips {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.softphone-filter-chip {
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--border-input);
+  background-color: #FFFFFF;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.softphone-filter-chip:hover {
+  background-color: #F9FAFB;
+  color: var(--text-heading);
+}
+
+.softphone-filter-chip.active {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
+
+.softphone-call-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.softphone-recent-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  transition: background-color 0.15s ease;
+}
+
+.softphone-recent-item:hover {
+  background-color: #F9FAFB;
+}
+
+.softphone-recent-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.softphone-recent-dir-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.softphone-recent-dir-icon.incoming { background-color: #F0FDF4; color: #12B76A; }
+.softphone-recent-dir-icon.outgoing { background-color: #EFF6FF; color: #2563EB; }
+.softphone-recent-dir-icon.missed { background-color: #FEF2F2; color: #F04438; }
+
+.softphone-recent-details {
+  min-width: 0;
+  flex: 1;
+}
+
+.softphone-recent-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.softphone-recent-meta {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.softphone-recent-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.softphone-outcome-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+}
+
+.softphone-outcome-badge.incoming, .softphone-outcome-badge.outgoing { background-color: #F0FDF4; color: #059669; }
+.softphone-outcome-badge.missed { background-color: #FEF2F2; color: #D92D20; }
+
+.softphone-callback-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #F0FDF4;
+  color: #12B76A;
+  border: 1px solid #BBF7D0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.softphone-callback-btn:hover {
+  background-color: #12B76A;
+  color: #FFFFFF;
+}
+
+/* CONTACTS TAB DIRECTORY (NAMESPACED & HORIZONTAL ROW ALIGNED) */
+.softphone-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.softphone-contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  gap: 12px;
+}
+
+.softphone-contact-item:hover {
+  background-color: #F9FAFB;
+}
+
+.softphone-contact-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.softphone-contact-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.softphone-contact-meta {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.softphone-contact-call-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #12B76A;
+  color: #FFFFFF;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.softphone-contact-call-btn:hover {
+  background-color: #0E9F5D;
+  transform: scale(1.06);
+}
+
+/* WHATSAPP & EMAIL DRAWER / MODAL OVERLAYS */
+.whatsapp-overlay, .modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(16, 24, 40, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 92;
+  display: none;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.whatsapp-overlay.show, .modal-overlay.show {
+  display: flex;
+  opacity: 1;
+}
+
+.whatsapp-panel {
+  width: 420px;
+  max-width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 93;
+  border-left: 1px solid var(--border-card);
+}
+
+.whatsapp-overlay.show .whatsapp-panel {
+  transform: translateX(0);
+}
+
+.whatsapp-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+}
+
+.whatsapp-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background-color: #E7FCE8;
+  color: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.whatsapp-drawer-title { font-size: 15px; font-weight: 600; color: var(--text-heading); }
+.whatsapp-drawer-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; }
+.whatsapp-recipient-card { display: flex; align-items: center; gap: 12px; padding: 12px; background-color: #F9FAFB; border-radius: var(--radius-lg); border: 1px solid var(--border-card); margin-bottom: 14px; }
+
+.wa-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #059669;
+  background-color: #E7FCE8;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.template-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.template-chip {
+  padding: 7px 13px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--border-input);
+  background-color: #FFFFFF;
+  color: var(--text-secondary);
+  cursor: pointer;
+  line-height: 1.2;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.03);
+}
+
+.template-chip:hover {
+  background-color: #F8FAFC;
+  border-color: #D0D5DD;
+  color: var(--text-heading);
+}
+
+.template-chip.active {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
+}
+
+.token-btn {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background-color: #EFF6FF;
+  color: var(--primary);
+  border: 1px solid #BFDBFE;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.token-btn:hover { background-color: #DBEAFE; }
+
+.wa-chat-bubble-container {
+  background-color: #E5DDD5;
+  background-image: radial-gradient(rgba(0,0,0,0.04) 1px, transparent 0);
+  background-size: 12px 12px;
+  padding: 12px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wa-chat-bubble {
+  background-color: #E7FCE8;
+  color: #111827;
+  padding: 10px 12px;
+  border-radius: 12px 0 12px 12px;
+  max-width: 90%;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.wa-bubble-footer { display: flex; align-items: center; justify-content: flex-end; gap: 4px; font-size: 10px; color: #667085; margin-top: 4px; }
+.wa-checks { color: #34B7F1; font-weight: 700; }
+
+.wa-info-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+  background-color: #F9FAFB;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  margin-top: auto;
+}
+
+.whatsapp-drawer-footer {
+  padding: 14px 18px;
+  border-top: 1px solid var(--border-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+}
+
+/* EMAIL 760px MODAL WITH CONTEXT SIDEBAR */
+.modal-overlay { justify-content: center; align-items: center; }
+
+.email-modal-container {
+  width: 920px;
+  max-width: calc(100vw - 40px);
+  max-height: 90vh;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  overflow: hidden;
+  border: 1px solid var(--border-card);
+}
+
+.email-main-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.email-main-column .modal-header {
+  flex-shrink: 0 !important;
+}
+
+.email-main-column .modal-body {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+.email-main-column .modal-footer {
+  flex-shrink: 0 !important;
+  background-color: #FFFFFF !important;
+  padding: 14px 20px 18px 20px !important;
+  box-sizing: border-box !important;
+}
+
+.email-recipient-chip-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background-color: #F8FAFC;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-divider);
+  margin-bottom: 14px;
+}
+
+.email-field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  width: 24px;
+}
+
+.email-to-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.email-editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background-color: #F8FAFC;
+  border: 1px solid var(--border-card);
+  border-bottom: none;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.toolbar-btn {
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: none;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.toolbar-btn:hover {
+  background-color: #E4E7EC;
+  color: var(--text-heading);
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 18px;
+  background-color: var(--border-divider);
+  margin: 0 4px;
+}
+
+.email-note-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background-color: #F8FAFC;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+}
+
+.email-context-sidebar {
+  background-color: #F8FAFC;
+  border-left: 1px solid var(--border-divider);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .softphone-panel, .whatsapp-panel, .modal-overlay, .floating-call-bar, .topbar-phone-btn.active-call, .floating-status-dot, .softphone-incoming-card {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Responsive Overlays */
+@media (max-width: 768px) {
+  .softphone-panel, .whatsapp-panel { width: 100%; }
+
+  .email-modal-container {
+    grid-template-columns: 1fr;
+    max-height: 100vh;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .email-context-sidebar { display: none; }
+
+  .floating-call-bar {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    justify-content: space-between;
+  }
+
+  .softphone-incoming-card {
+    right: 12px;
+    left: 12px;
+    bottom: 12px;
+    width: auto;
+  }
+}
+
+/* Call Contact Modal Redesigned Cancel Button */
+#callChoiceModal .call-choice-cancel-btn,
+#callChoiceModal .modal-footer .btn-secondary {
+  background-color: #FFFFFF !important;
+  color: var(--text-heading, #344054) !important;
+  border: 1px solid var(--border-input, #D0D5DD) !important;
+  border-radius: var(--radius-md, 8px) !important;
+  padding: 8px 18px !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(16, 24, 40, 0.05)) !important;
+  transition: all 0.15s ease-in-out !important;
+  cursor: pointer !important;
+}
+
+#callChoiceModal .call-choice-cancel-btn:hover,
+#callChoiceModal .modal-footer .btn-secondary:hover:not(:disabled) {
+  background-color: #F8FAFC !important;
+  border-color: var(--border-input, #D0D5DD) !important;
+  color: #1D2939 !important;
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(16, 24, 40, 0.1)) !important;
+}
+
+#callChoiceModal .call-choice-cancel-btn:active,
+#callChoiceModal .modal-footer .btn-secondary:active {
+  background-color: #F1F5F9 !important;
+  transform: translateY(0) !important;
+}
+

@@ -1,0 +1,127 @@
+﻿/* NexFlow CRM Responsive Styles */
+
+/* Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width-expanded: 64px;
+  }
+  
+  .sidebar-brand-name,
+  .sidebar-brand-tag,
+  .sidebar-nav-label,
+  .sidebar-badge,
+  .sidebar-profile-info,
+  .sidebar-footer-text {
+    display: none;
+  }
+  
+  .sidebar-header {
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .sidebar-nav-item {
+    justify-content: center;
+    padding: 12px 0;
+  }
+  
+  .sidebar-profile {
+    justify-content: center;
+    padding: 8px 0;
+  }
+  
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width-expanded: 0px;
+  }
+  
+  .topbar {
+    left: 0;
+    padding: 0 12px;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .mobile-menu-toggle {
+    display: flex;
+  }
+  
+  .topbar-search {
+    display: none;
+  }
+  
+  .sidebar {
+    width: 260px;
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-brand-name,
+  .sidebar-brand-tag,
+  .sidebar-profile-info {
+    display: flex;
+  }
+  .sidebar-nav-label {
+    display: block;
+  }
+  .sidebar-badge {
+    display: flex;
+  }
+  
+  .sidebar-header {
+    justify-content: flex-start;
+    padding: 0 16px;
+  }
+  
+  .sidebar-nav-item {
+    justify-content: flex-start;
+    padding: 10px 12px;
+  }
+  
+  .sidebar-profile {
+    justify-content: flex-start;
+    padding: 8px 12px;
+  }
+  
+  .sidebar-backdrop.mobile-open {
+    display: block;
+  }
+  
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .page-container {
+    padding: 16px 12px;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .toolbar-actions {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .drawer-content {
+    max-width: 100%;
+  }
+}
+

@@ -1,0 +1,223 @@
+﻿/* ==========================================================================
+   NexFlow CRM — Client Portal Proposals Page Styles
+   Scoped specifically for client-proposals.php
+   ========================================================================== */
+
+/* Proposals Grid Layout */
+.client-proposals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.client-proposal-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.client-proposal-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+}
+
+.client-proposal-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.client-proposal-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 4px 0;
+  line-height: 1.35;
+}
+
+.client-proposal-id {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748B;
+  background-color: #F1F5F9;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+
+/* Pricing Summary Box */
+.client-proposal-pricing-box {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.client-proposal-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 13px;
+  color: #475569;
+}
+
+.client-proposal-summary-row.total {
+  border-top: 1px dashed #CBD5E1;
+  margin-top: 6px;
+  padding-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+/* Terms Box */
+.client-proposal-terms-box {
+  background-color: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 12.5px;
+  color: #92400E;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+/* Timeline / Activity items */
+.client-proposal-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.client-proposal-timeline-item {
+  display: flex;
+  gap: 10px;
+  font-size: 12.5px;
+  align-items: flex-start;
+}
+
+.client-proposal-timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2563EB;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+/* Mobile responsive fixes */
+@media (max-width: 640px) {
+  .client-proposals-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Proposals Table Intelligent Column Width Distribution
+   ========================================================================== */
+
+/* Flexible Proposal Title Column */
+.client-portal-table th.col-proposal-info,
+.client-portal-table td.cell-proposal-info {
+  min-width: 200px;
+  word-break: break-word;
+}
+
+/* Compact Fixed Amount Column */
+.client-portal-table th.col-amount,
+.client-portal-table td.cell-amount {
+  width: 100px;
+  min-width: 95px;
+  white-space: nowrap;
+}
+
+/* Compact Fixed Status Column */
+.client-portal-table th.col-status,
+.client-portal-table td.cell-status {
+  width: 130px;
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+/* Strict Single-Line Date Columns */
+.client-portal-table th.col-issue-date,
+.client-portal-table td.cell-issue-date,
+.client-portal-table th.col-expiry-date,
+.client-portal-table td.cell-expiry-date {
+  width: 110px;
+  min-width: 105px;
+  white-space: nowrap !important;
+  word-break: normal !important;
+}
+
+/* Balanced Actions Column Width */
+.client-portal-table th.col-actions,
+.client-portal-table td.cell-actions {
+  text-align: right;
+  min-width: 390px;
+  width: 390px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.proposal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.proposal-actions .btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0 10px;
+  line-height: 1;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.btn-request-changes {
+  color: #D97706 !important;
+  border-color: #FCD34D !important;
+  background-color: #FEF3C7 !important;
+}
+
+.btn-request-changes:hover {
+  background-color: #FDE68A !important;
+  border-color: #F59E0B !important;
+  color: #B45309 !important;
+}
+
+.btn-decline {
+  color: #B91C1C !important;
+  border-color: #FCA5A5 !important;
+  background-color: #FEF2F2 !important;
+}
+
+.btn-decline:hover {
+  background-color: #FEE2E2 !important;
+  border-color: #EF4444 !important;
+  color: #991B1B !important;
+}
+

@@ -1,0 +1,28 @@
+﻿/* ==========================================================================
+   NexFlow CRM — Global Semantic Theme Stylesheet
+   Default Light Appearance Tokens
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+  
+  --app-bg: #F6F8FC;
+  --surface: #FFFFFF;
+  --surface-secondary: #F8FAFC;
+  --surface-elevated: #FFFFFF;
+  --sidebar-bg: #101828;
+  --sidebar-text: #CBD5E1;
+  --sidebar-text-active: #60A5FA;
+  --text-primary: #101828;
+  --text-secondary: #344054;
+  --text-muted: #98A2B3;
+  --border-color: #E4E7EC;
+  --border-strong: #D0D5DD;
+  --border-divider: #F2F4F7;
+  --input-bg: #FFFFFF;
+  --table-header-bg: #F8FAFC;
+  --row-hover-bg: #F8FBFF;
+  --backdrop-color: rgba(16, 24, 40, 0.48);
+  --shadow-color: rgba(16, 24, 40, 0.10);
+}
+

@@ -1,0 +1,168 @@
+﻿/* ==========================================================================
+   NexFlow CRM — Client Portal Contracts Page Styles
+   Scoped specifically for client-contracts.php
+   ========================================================================== */
+
+/* Contracts Grid Layout */
+.client-contracts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.client-contract-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.client-contract-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+}
+
+.client-contract-id {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748B;
+  background-color: #F1F5F9;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  display: inline-block;
+}
+
+/* Parties Grid */
+.client-contract-parties-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+/* Terms Box */
+.client-contract-terms-box {
+  background-color: #FAFAFA;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.client-contract-term-item {
+  margin-bottom: 14px;
+}
+
+.client-contract-term-item:last-child {
+  margin-bottom: 0;
+}
+
+.client-contract-term-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 4px;
+}
+
+.client-contract-term-text {
+  font-size: 12.5px;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Document Box */
+.client-contract-doc-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-top: 16px;
+}
+
+/* Signature Status Box */
+.client-contract-sig-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+/* Days Remaining Badge */
+.client-contract-days-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background-color: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #BFDBFE;
+}
+
+.client-contract-days-badge.warning {
+  background-color: #FEF3C7;
+  color: #B45309;
+  border-color: #FDE68A;
+}
+
+.client-contract-days-badge.danger {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+  border-color: #FECACA;
+}
+
+/* Timeline */
+.client-contract-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.client-contract-timeline-item {
+  display: flex;
+  gap: 10px;
+  font-size: 12.5px;
+  align-items: flex-start;
+}
+
+.client-contract-timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2563EB;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+/* Mobile responsive fixes */
+@media (max-width: 640px) {
+  .client-contracts-grid,
+  .client-contract-parties-grid,
+  .client-contract-sig-box {
+    grid-template-columns: 1fr;
+  }
+}
+

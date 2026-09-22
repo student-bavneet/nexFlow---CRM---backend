@@ -1,0 +1,932 @@
+================================================================================
+NEXFLOW CRM — COMPANIES MODULE: FULL DATABASE & CODEBASE AUDIT REPORT
+ACTUAL LIVE EXECUTION RESULTS
+Audit Executed At: 2026-09-08 08:49:11
+Database: nexflow_crm (127.0.0.1:3306)
+================================================================================
+
+================================================================================
+1. DATABASE TABLES
+================================================================================
+
+--- ALL TABLES (SHOW TABLES) ---
+[01] calendar_events
+[02] companies
+[03] contacts
+[04] crm_custom_field_options
+[05] crm_custom_field_values
+[06] crm_custom_fields
+[07] crm_integrations
+[08] crm_settings
+[09] custom_fields
+[10] deals
+[11] industries
+[12] industry_modules
+[13] industry_pipeline_stages
+[14] industry_terms
+[15] leads
+[16] modules
+[17] organization_modules
+[18] organization_settings
+[19] organizations
+[20] permissions
+[21] pipeline_stages
+[22] project_files
+[23] project_milestones
+[24] projects
+[25] role_permissions
+[26] roles
+[27] tasks
+[28] team_activities
+[29] team_defaults
+[30] team_notes
+[31] teams
+[32] user_notification_preferences
+[33] user_permissions
+[34] user_preferences
+[35] users
+
+Total Tables: 35
+
+--- COMPANIES TABLE CHECK ---
+companies table EXISTS
+
+--- SEARCH FOR COMPANY / ACCOUNT / CLIENT COLUMNS IN ALL TABLES ---
+companies.company_code       varchar(50)               Null:YES  Key:     Default:
+companies.company_size       varchar(50)               Null:YES  Key:     Default:
+contacts.company_name        varchar(150)              Null:YES  Key:     Default:
+deals.company                varchar(150)              Null:YES  Key:     Default:
+leads.company                varchar(150)              Null:YES  Key:     Default:
+organization_settings.company_size varchar(50)               Null:YES  Key:     Default:
+projects.client_name         varchar(200)              Null:NO   Key:     Default:
+
+Conclusion: No existing table represents company/account entities. Companies are only referenced as plain text strings across existing tables.
+
+================================================================================
+2. COMPANY PERMISSIONS
+================================================================================
+
+--- ACTUAL ROWS IN permissions TABLE FOR module_key = 'companies' ---
+ID    Module Key      Action     Description                    Created At
+-------------------------------------------------------------------------------------
+12    companies       view       View Companies                 2026-09-07 14:22:47
+13    companies       create     Create Companies               2026-09-07 14:22:47
+14    companies       edit       Edit Companies                 2026-09-07 14:22:47
+15    companies       delete     Delete Companies               2026-09-07 14:22:47
+16    companies       export     Export Companies               2026-09-07 14:22:47
+
+--- ACTUAL ROLE MAPPINGS IN role_permissions FOR COMPANIES PERMISSIONS ---
+Role ID  Role Name              Role Slug          Perm ID  Action     Description
+------------------------------------------------------------------------------------------
+1        Super Administrator    super_admin        12       view       View Companies
+1        Super Administrator    super_admin        13       create     Create Companies
+1        Super Administrator    super_admin        14       edit       Edit Companies
+1        Super Administrator    super_admin        15       delete     Delete Companies
+1        Super Administrator    super_admin        16       export     Export Companies
+2        Sales Manager          sales_manager      12       view       View Companies
+2        Sales Manager          sales_manager      13       create     Create Companies
+2        Sales Manager          sales_manager      14       edit       Edit Companies
+3        Sales Representative   sales_rep          12       view       View Companies
+4        Account Executive      account_executive  12       view       View Companies
+4        Account Executive      account_executive  13       create     Create Companies
+4        Account Executive      account_executive  14       edit       Edit Companies
+5        Sales Operations       sales_ops          12       view       View Companies
+5        Sales Operations       sales_ops          13       create     Create Companies
+5        Sales Operations       sales_ops          14       edit       Edit Companies
+6        Viewer                 viewer             12       view       View Companies
+
+Summary of Roles with Companies Access:
+  * Super Administrator: view, create, edit, delete, export
+  * Sales Manager: view, create, edit
+  * Sales Representative: view
+  * Account Executive: view, create, edit
+  * Sales Operations: view, create, edit
+  * Viewer: view
+
+================================================================================
+3. RELATED TABLE SCHEMAS
+================================================================================
+
+--------------------------------------------------------------------------------
+TABLE: contacts
+--------------------------------------------------------------------------------
+[COLUMNS]
+Field                    Type                      Null   Key    Default              Extra
+------------------------------------------------------------------------------------------
+id                       int(10) unsigned          NO     PRI                         auto_increment
+organization_id          int(10) unsigned          NO     MUL                         
+contact_code             varchar(50)               YES                                
+first_name               varchar(75)               YES                                
+last_name                varchar(75)               YES                                
+name                     varchar(150)              NO                                 
+company_name             varchar(150)              YES                                
+job_title                varchar(100)              YES                                
+email                    varchar(180)              YES    MUL                         
+phone                    varchar(50)               YES                                
+clean_phone              varchar(50)               YES                                
+whatsapp                 varchar(50)               YES                                
+linkedin                 varchar(255)              YES                                
+relationship             varchar(50)               YES    MUL                         
+owner_id                 int(10) unsigned          YES    MUL                         
+source                   varchar(50)               YES                                
+location                 varchar(150)              YES                                
+lead_id                  int(10) unsigned          YES    MUL                         
+is_active                tinyint(1)                NO            1                    
+created_by               int(10) unsigned          NO                                 
+created_at               datetime                  NO            current_timestamp()  
+updated_at               datetime                  NO            current_timestamp()  on update current_timestamp()
+
+[INDEXES]
+Key Name                  Unique Column Name               Seq    Index Type
+--------------------------------------------------------------------------------
+PRIMARY                   YES    id                        1      BTREE
+idx_contacts_org          NO     organization_id           1      BTREE
+idx_contacts_owner        NO     owner_id                  1      BTREE
+idx_contacts_email        NO     email                     1      BTREE
+idx_contacts_relationship NO     relationship              1      BTREE
+idx_contacts_org_name     NO     organization_id           1      BTREE
+idx_contacts_org_name     NO     name                      2      BTREE
+idx_contacts_lead         NO     lead_id                   1      BTREE
+
+[CREATE TABLE & FOREIGN KEYS]
+CREATE TABLE `contacts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `contact_code` varchar(50) DEFAULT NULL,
+  `first_name` varchar(75) DEFAULT NULL,
+  `last_name` varchar(75) DEFAULT NULL,
+  `name` varchar(150) NOT NULL,
+  `company_name` varchar(150) DEFAULT NULL,
+  `job_title` varchar(100) DEFAULT NULL,
+  `email` varchar(180) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `clean_phone` varchar(50) DEFAULT NULL,
+  `whatsapp` varchar(50) DEFAULT NULL,
+  `linkedin` varchar(255) DEFAULT NULL,
+  `relationship` varchar(50) DEFAULT NULL,
+  `owner_id` int(10) unsigned DEFAULT NULL,
+  `source` varchar(50) DEFAULT NULL,
+  `location` varchar(150) DEFAULT NULL,
+  `lead_id` int(10) unsigned DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_by` int(10) unsigned NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_contacts_org` (`organization_id`),
+  KEY `idx_contacts_owner` (`owner_id`),
+  KEY `idx_contacts_email` (`email`),
+  KEY `idx_contacts_relationship` (`relationship`),
+  KEY `idx_contacts_org_name` (`organization_id`,`name`),
+  KEY `idx_contacts_lead` (`lead_id`),
+  CONSTRAINT `fk_contacts_lead` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_contacts_org` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_contacts_owner` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+--------------------------------------------------------------------------------
+TABLE: deals
+--------------------------------------------------------------------------------
+[COLUMNS]
+Field                    Type                      Null   Key    Default              Extra
+------------------------------------------------------------------------------------------
+id                       int(10) unsigned          NO     PRI                         auto_increment
+organization_id          int(10) unsigned          NO     MUL                         
+lead_id                  int(10) unsigned          YES    MUL                         
+contact_id               int(10) unsigned          YES    MUL                         
+deal_code                varchar(50)               YES                                
+name                     varchar(150)              NO                                 
+contact_name             varchar(150)              YES                                
+company                  varchar(150)              YES                                
+stage                    varchar(50)               NO     MUL    Prospect             
+value                    decimal(12,2)             NO            0.00                 
+probability              decimal(5,2)              YES                                
+source                   varchar(50)               YES    MUL                         
+priority                 varchar(30)               YES                                
+product                  varchar(150)              YES                                
+description              text                      YES                                
+status                   enum('open','won','lost') NO     MUL    open                 
+lost_reason              varchar(255)              YES                                
+assigned_to              int(10) unsigned          YES    MUL                         
+close_date               date                      YES                                
+created_at               datetime                  NO            current_timestamp()  
+updated_at               datetime                  NO            current_timestamp()  on update current_timestamp()
+
+[INDEXES]
+Key Name                  Unique Column Name               Seq    Index Type
+--------------------------------------------------------------------------------
+PRIMARY                   YES    id                        1      BTREE
+idx_org                   NO     organization_id           1      BTREE
+idx_assigned              NO     assigned_to               1      BTREE
+idx_status                NO     status                    1      BTREE
+idx_stage                 NO     stage                     1      BTREE
+idx_lead_id               NO     lead_id                   1      BTREE
+idx_deals_source          NO     source                    1      BTREE
+idx_deals_contact         NO     contact_id                1      BTREE
+
+[CREATE TABLE & FOREIGN KEYS]
+CREATE TABLE `deals` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `lead_id` int(10) unsigned DEFAULT NULL,
+  `contact_id` int(10) unsigned DEFAULT NULL,
+  `deal_code` varchar(50) DEFAULT NULL,
+  `name` varchar(150) NOT NULL,
+  `contact_name` varchar(150) DEFAULT NULL,
+  `company` varchar(150) DEFAULT NULL,
+  `stage` varchar(50) NOT NULL DEFAULT 'Prospect',
+  `value` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `probability` decimal(5,2) DEFAULT NULL,
+  `source` varchar(50) DEFAULT NULL,
+  `priority` varchar(30) DEFAULT NULL,
+  `product` varchar(150) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `status` enum('open','won','lost') NOT NULL DEFAULT 'open',
+  `lost_reason` varchar(255) DEFAULT NULL,
+  `assigned_to` int(10) unsigned DEFAULT NULL,
+  `close_date` date DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_org` (`organization_id`),
+  KEY `idx_assigned` (`assigned_to`),
+  KEY `idx_status` (`status`),
+  KEY `idx_stage` (`stage`),
+  KEY `idx_lead_id` (`lead_id`),
+  KEY `idx_deals_source` (`source`),
+  KEY `idx_deals_contact` (`contact_id`),
+  CONSTRAINT `fk_deals_contact` FOREIGN KEY (`contact_id`) REFERENCES `contacts` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+--------------------------------------------------------------------------------
+TABLE: leads
+--------------------------------------------------------------------------------
+[COLUMNS]
+Field                    Type                      Null   Key    Default              Extra
+------------------------------------------------------------------------------------------
+id                       int(10) unsigned          NO     PRI                         auto_increment
+organization_id          int(10) unsigned          NO     MUL                         
+lead_code                varchar(50)               YES                                
+name                     varchar(150)              NO                                 
+first_name               varchar(75)               YES                                
+last_name                varchar(75)               YES                                
+email                    varchar(180)              YES                                
+phone                    varchar(50)               YES                                
+whatsapp                 varchar(50)               YES                                
+company                  varchar(150)              YES                                
+job_title                varchar(100)              YES                                
+location                 varchar(150)              YES                                
+status                   varchar(50)               NO     MUL    New                  
+score                    int(11)                   NO            0                    
+value                    decimal(12,2)             NO            0.00                 
+source                   varchar(50)               YES                                
+assigned_to              int(10) unsigned          YES    MUL                         
+created_at               datetime                  NO            current_timestamp()  
+updated_at               datetime                  NO            current_timestamp()  on update current_timestamp()
+
+[INDEXES]
+Key Name                  Unique Column Name               Seq    Index Type
+--------------------------------------------------------------------------------
+PRIMARY                   YES    id                        1      BTREE
+idx_org                   NO     organization_id           1      BTREE
+idx_assigned              NO     assigned_to               1      BTREE
+idx_status                NO     status                    1      BTREE
+
+[CREATE TABLE & FOREIGN KEYS]
+CREATE TABLE `leads` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `lead_code` varchar(50) DEFAULT NULL,
+  `name` varchar(150) NOT NULL,
+  `first_name` varchar(75) DEFAULT NULL,
+  `last_name` varchar(75) DEFAULT NULL,
+  `email` varchar(180) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `whatsapp` varchar(50) DEFAULT NULL,
+  `company` varchar(150) DEFAULT NULL,
+  `job_title` varchar(100) DEFAULT NULL,
+  `location` varchar(150) DEFAULT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'New',
+  `score` int(11) NOT NULL DEFAULT 0,
+  `value` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `source` varchar(50) DEFAULT NULL,
+  `assigned_to` int(10) unsigned DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_org` (`organization_id`),
+  KEY `idx_assigned` (`assigned_to`),
+  KEY `idx_status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+--------------------------------------------------------------------------------
+TABLE: tasks
+--------------------------------------------------------------------------------
+[COLUMNS]
+Field                    Type                      Null   Key    Default              Extra
+------------------------------------------------------------------------------------------
+id                       int(10) unsigned          NO     PRI                         auto_increment
+organization_id          int(10) unsigned          NO     MUL                         
+title                    varchar(200)              NO                                 
+description              text                      YES                                
+status                   enum('pending','in_progress','completed','cancelled') NO     MUL    pending              
+priority                 enum('low','medium','high','urgent') NO            medium               
+due_date                 datetime                  YES                                
+assigned_to              int(10) unsigned          YES    MUL                         
+related_type             varchar(50)               YES                                
+related_id               int(10) unsigned          YES                                
+created_at               datetime                  NO            current_timestamp()  
+updated_at               datetime                  NO            current_timestamp()  on update current_timestamp()
+
+[INDEXES]
+Key Name                  Unique Column Name               Seq    Index Type
+--------------------------------------------------------------------------------
+PRIMARY                   YES    id                        1      BTREE
+idx_org                   NO     organization_id           1      BTREE
+idx_assigned              NO     assigned_to               1      BTREE
+idx_status                NO     status                    1      BTREE
+
+[CREATE TABLE & FOREIGN KEYS]
+CREATE TABLE `tasks` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `description` text DEFAULT NULL,
+  `status` enum('pending','in_progress','completed','cancelled') NOT NULL DEFAULT 'pending',
+  `priority` enum('low','medium','high','urgent') NOT NULL DEFAULT 'medium',
+  `due_date` datetime DEFAULT NULL,
+  `assigned_to` int(10) unsigned DEFAULT NULL,
+  `related_type` varchar(50) DEFAULT NULL,
+  `related_id` int(10) unsigned DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_org` (`organization_id`),
+  KEY `idx_assigned` (`assigned_to`),
+  KEY `idx_status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+--------------------------------------------------------------------------------
+TABLE: team_activities
+--------------------------------------------------------------------------------
+[COLUMNS]
+Field                    Type                      Null   Key    Default              Extra
+------------------------------------------------------------------------------------------
+id                       int(10) unsigned          NO     PRI                         auto_increment
+organization_id          int(10) unsigned          NO     MUL                         
+user_id                  int(10) unsigned          NO     MUL                         
+activity_type            varchar(50)               NO                                 
+title                    varchar(200)              NO                                 
+description              text                      YES                                
+related_entity           varchar(50)               YES                                
+related_entity_id        int(10) unsigned          YES                                
+created_by               int(10) unsigned          NO                                 
+created_at               datetime                  NO     MUL    current_timestamp()  
+
+[INDEXES]
+Key Name                  Unique Column Name               Seq    Index Type
+--------------------------------------------------------------------------------
+PRIMARY                   YES    id                        1      BTREE
+idx_org                   NO     organization_id           1      BTREE
+idx_user                  NO     user_id                   1      BTREE
+idx_created               NO     created_at                1      BTREE
+
+[CREATE TABLE & FOREIGN KEYS]
+CREATE TABLE `team_activities` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `activity_type` varchar(50) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `description` text DEFAULT NULL,
+  `related_entity` varchar(50) DEFAULT NULL,
+  `related_entity_id` int(10) unsigned DEFAULT NULL,
+  `created_by` int(10) unsigned NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_org` (`organization_id`),
+  KEY `idx_user` (`user_id`),
+  KEY `idx_created` (`created_at`)
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+--------------------------------------------------------------------------------
+TABLE: team_notes
+--------------------------------------------------------------------------------
+[COLUMNS]
+Field                    Type                      Null   Key    Default              Extra
+------------------------------------------------------------------------------------------
+id                       int(10) unsigned          NO     PRI                         auto_increment
+organization_id          int(10) unsigned          NO     MUL                         
+member_id                int(10) unsigned          YES    MUL                         
+related_type             varchar(50)               NO     MUL    member               
+related_id               int(10) unsigned          YES                                
+created_by               int(10) unsigned          NO                                 
+title                    varchar(200)              YES                                
+content                  text                      NO                                 
+is_pinned                tinyint(1)                NO     MUL    0                    
+created_at               datetime                  NO            current_timestamp()  
+updated_at               datetime                  NO            current_timestamp()  on update current_timestamp()
+
+[INDEXES]
+Key Name                  Unique Column Name               Seq    Index Type
+--------------------------------------------------------------------------------
+PRIMARY                   YES    id                        1      BTREE
+idx_org                   NO     organization_id           1      BTREE
+idx_member                NO     member_id                 1      BTREE
+idx_pinned                NO     is_pinned                 1      BTREE
+idx_notes_related         NO     related_type              1      BTREE
+idx_notes_related         NO     related_id                2      BTREE
+
+[CREATE TABLE & FOREIGN KEYS]
+CREATE TABLE `team_notes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `member_id` int(10) unsigned DEFAULT NULL,
+  `related_type` varchar(50) NOT NULL DEFAULT 'member',
+  `related_id` int(10) unsigned DEFAULT NULL,
+  `created_by` int(10) unsigned NOT NULL,
+  `title` varchar(200) DEFAULT NULL,
+  `content` text NOT NULL,
+  `is_pinned` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_org` (`organization_id`),
+  KEY `idx_member` (`member_id`),
+  KEY `idx_pinned` (`is_pinned`),
+  KEY `idx_notes_related` (`related_type`,`related_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+--------------------------------------------------------------------------------
+TABLE: calendar_events
+--------------------------------------------------------------------------------
+[COLUMNS]
+Field                    Type                      Null   Key    Default              Extra
+------------------------------------------------------------------------------------------
+id                       int(10) unsigned          NO     PRI                         auto_increment
+organization_id          int(10) unsigned          NO     MUL                         
+title                    varchar(200)              NO                                 
+description              text                      YES                                
+event_type               varchar(50)               NO            meeting              
+start_time               datetime                  NO                                 
+end_time                 datetime                  NO                                 
+user_id                  int(10) unsigned          NO     MUL                         
+related_type             varchar(50)               YES    MUL                         
+related_id               int(10) unsigned          YES                                
+status                   enum('scheduled','completed','cancelled') NO     MUL    scheduled            
+created_at               datetime                  NO            current_timestamp()  
+updated_at               datetime                  NO            current_timestamp()  on update current_timestamp()
+
+[INDEXES]
+Key Name                  Unique Column Name               Seq    Index Type
+--------------------------------------------------------------------------------
+PRIMARY                   YES    id                        1      BTREE
+idx_org                   NO     organization_id           1      BTREE
+idx_user                  NO     user_id                   1      BTREE
+idx_status                NO     status                    1      BTREE
+idx_cal_related           NO     related_type              1      BTREE
+idx_cal_related           NO     related_id                2      BTREE
+
+[CREATE TABLE & FOREIGN KEYS]
+CREATE TABLE `calendar_events` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `description` text DEFAULT NULL,
+  `event_type` varchar(50) NOT NULL DEFAULT 'meeting',
+  `start_time` datetime NOT NULL,
+  `end_time` datetime NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `related_type` varchar(50) DEFAULT NULL,
+  `related_id` int(10) unsigned DEFAULT NULL,
+  `status` enum('scheduled','completed','cancelled') NOT NULL DEFAULT 'scheduled',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_org` (`organization_id`),
+  KEY `idx_user` (`user_id`),
+  KEY `idx_status` (`status`),
+  KEY `idx_cal_related` (`related_type`,`related_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+--------------------------------------------------------------------------------
+TABLE: projects
+--------------------------------------------------------------------------------
+[COLUMNS]
+Field                    Type                      Null   Key    Default              Extra
+------------------------------------------------------------------------------------------
+id                       int(10) unsigned          NO     PRI                         auto_increment
+organization_id          int(10) unsigned          NO     MUL                         
+project_code             varchar(50)               NO                                 
+name                     varchar(200)              NO                                 
+client_name              varchar(200)              NO                                 
+manager_id               int(10) unsigned          YES    MUL                         
+status                   varchar(50)               YES    MUL                         
+priority                 varchar(30)               YES                                
+start_date               date                      YES                                
+due_date                 date                      YES    MUL                         
+budget                   decimal(12,2)             YES                                
+progress                 tinyint(3) unsigned       YES                                
+description              text                      YES                                
+deal_id                  int(10) unsigned          YES                                
+created_by               int(10) unsigned          NO                                 
+created_at               datetime                  NO            current_timestamp()  
+updated_at               datetime                  NO            current_timestamp()  on update current_timestamp()
+
+[INDEXES]
+Key Name                  Unique Column Name               Seq    Index Type
+--------------------------------------------------------------------------------
+PRIMARY                   YES    id                        1      BTREE
+uq_projects_org_code      YES    organization_id           1      BTREE
+uq_projects_org_code      YES    project_code              2      BTREE
+idx_projects_org          NO     organization_id           1      BTREE
+idx_projects_manager      NO     manager_id                1      BTREE
+idx_projects_status       NO     status                    1      BTREE
+idx_projects_due_date     NO     due_date                  1      BTREE
+
+[CREATE TABLE & FOREIGN KEYS]
+CREATE TABLE `projects` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `project_code` varchar(50) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `client_name` varchar(200) NOT NULL,
+  `manager_id` int(10) unsigned DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `priority` varchar(30) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `due_date` date DEFAULT NULL,
+  `budget` decimal(12,2) DEFAULT NULL,
+  `progress` tinyint(3) unsigned DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `deal_id` int(10) unsigned DEFAULT NULL,
+  `created_by` int(10) unsigned NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_projects_org_code` (`organization_id`,`project_code`),
+  KEY `idx_projects_org` (`organization_id`),
+  KEY `idx_projects_manager` (`manager_id`),
+  KEY `idx_projects_status` (`status`),
+  KEY `idx_projects_due_date` (`due_date`),
+  CONSTRAINT `fk_projects_org` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+--------------------------------------------------------------------------------
+TABLE: users
+--------------------------------------------------------------------------------
+[COLUMNS]
+Field                    Type                      Null   Key    Default              Extra
+------------------------------------------------------------------------------------------
+id                       int(10) unsigned          NO     PRI                         auto_increment
+organization_id          int(10) unsigned          NO     MUL                         
+name                     varchar(150)              NO                                 
+first_name               varchar(75)               YES                                
+last_name                varchar(75)               YES                                
+display_name             varchar(150)              YES                                
+email                    varchar(180)              NO     UNI                         
+phone                    varchar(30)               YES                                
+job_title                varchar(100)              YES                                
+department               varchar(100)              YES                                
+location                 varchar(150)              YES                                
+timezone                 varchar(100)              YES                                
+language                 varchar(20)               YES                                
+photo_path               varchar(255)              YES                                
+short_bio                text                      YES                                
+linkedin_url             varchar(255)              YES                                
+password_hash            varchar(255)              NO                                 
+role                     varchar(50)               NO            admin                
+role_id                  int(10) unsigned          YES                                
+availability             varchar(30)               NO            Available            
+reports_to               int(10) unsigned          YES                                
+quota                    decimal(12,2)             NO            50000.00             
+status                   enum('active','inactive') NO            active               
+last_login_at            datetime                  YES                                
+created_at               datetime                  NO                                 
+updated_at               datetime                  NO                                 
+
+[INDEXES]
+Key Name                  Unique Column Name               Seq    Index Type
+--------------------------------------------------------------------------------
+PRIMARY                   YES    id                        1      BTREE
+uq_user_email             YES    email                     1      BTREE
+idx_user_org              NO     organization_id           1      BTREE
+
+[CREATE TABLE & FOREIGN KEYS]
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `first_name` varchar(75) DEFAULT NULL,
+  `last_name` varchar(75) DEFAULT NULL,
+  `display_name` varchar(150) DEFAULT NULL,
+  `email` varchar(180) NOT NULL,
+  `phone` varchar(30) DEFAULT NULL,
+  `job_title` varchar(100) DEFAULT NULL,
+  `department` varchar(100) DEFAULT NULL,
+  `location` varchar(150) DEFAULT NULL,
+  `timezone` varchar(100) DEFAULT NULL,
+  `language` varchar(20) DEFAULT NULL,
+  `photo_path` varchar(255) DEFAULT NULL,
+  `short_bio` text DEFAULT NULL,
+  `linkedin_url` varchar(255) DEFAULT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `role` varchar(50) NOT NULL DEFAULT 'admin',
+  `role_id` int(10) unsigned DEFAULT NULL,
+  `availability` varchar(30) NOT NULL DEFAULT 'Available',
+  `reports_to` int(10) unsigned DEFAULT NULL,
+  `quota` decimal(12,2) NOT NULL DEFAULT 50000.00,
+  `status` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `last_login_at` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_user_email` (`email`),
+  KEY `idx_user_org` (`organization_id`),
+  CONSTRAINT `fk_user_org` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+--------------------------------------------------------------------------------
+TABLE: organizations
+--------------------------------------------------------------------------------
+[COLUMNS]
+Field                    Type                      Null   Key    Default              Extra
+------------------------------------------------------------------------------------------
+id                       int(10) unsigned          NO     PRI                         auto_increment
+name                     varchar(180)              NO                                 
+slug                     varchar(180)              NO     UNI                         
+business_email           varchar(180)              NO                                 
+phone                    varchar(60)               YES                                
+website                  varchar(255)              YES                                
+country                  varchar(120)              YES                                
+state_region             varchar(120)              YES                                
+city                     varchar(120)              YES                                
+postal_code              varchar(30)               YES                                
+street_address           varchar(255)              YES                                
+currency                 varchar(30)               NO            USD ($)              
+timezone                 varchar(80)               NO            UTC                  
+logo_path                varchar(255)              YES                                
+industry_id              int(10) unsigned          YES    MUL                         
+industry_name            varchar(180)              YES                                
+setup_completed          tinyint(1)                NO            0                    
+setup_completed_at       datetime                  YES                                
+created_at               datetime                  NO                                 
+updated_at               datetime                  NO                                 
+
+[INDEXES]
+Key Name                  Unique Column Name               Seq    Index Type
+--------------------------------------------------------------------------------
+PRIMARY                   YES    id                        1      BTREE
+uq_org_slug               YES    slug                      1      BTREE
+fk_org_industry           NO     industry_id               1      BTREE
+
+[CREATE TABLE & FOREIGN KEYS]
+CREATE TABLE `organizations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(180) NOT NULL,
+  `slug` varchar(180) NOT NULL,
+  `business_email` varchar(180) NOT NULL,
+  `phone` varchar(60) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `country` varchar(120) DEFAULT NULL,
+  `state_region` varchar(120) DEFAULT NULL,
+  `city` varchar(120) DEFAULT NULL,
+  `postal_code` varchar(30) DEFAULT NULL,
+  `street_address` varchar(255) DEFAULT NULL,
+  `currency` varchar(30) NOT NULL DEFAULT 'USD ($)',
+  `timezone` varchar(80) NOT NULL DEFAULT 'UTC',
+  `logo_path` varchar(255) DEFAULT NULL,
+  `industry_id` int(10) unsigned DEFAULT NULL,
+  `industry_name` varchar(180) DEFAULT NULL,
+  `setup_completed` tinyint(1) NOT NULL DEFAULT 0,
+  `setup_completed_at` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_org_slug` (`slug`),
+  KEY `fk_org_industry` (`industry_id`),
+  CONSTRAINT `fk_org_industry` FOREIGN KEY (`industry_id`) REFERENCES `industries` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+================================================================================
+4. CUSTOM FIELDS
+================================================================================
+
+--- crm_custom_fields COLUMNS ---
+Field                    Type                      Null   Key    Default         Extra
+-------------------------------------------------------------------------------------
+id                       int(10) unsigned          NO     PRI                    auto_increment
+organization_id          int(10) unsigned          NO     MUL    1               
+field_key                varchar(100)              NO                            
+field_label              varchar(150)              NO                            
+target_object            varchar(50)               NO                            
+field_type               varchar(50)               NO            Text            
+is_required              tinyint(1)                NO            0               
+is_active                tinyint(1)                NO            1               
+sort_order               int(10) unsigned          NO            0               
+created_by               int(10) unsigned          YES                           
+created_at               datetime                  NO            current_timestamp() 
+updated_at               datetime                  NO            current_timestamp() on update current_timestamp()
+
+--- DISTINCT target_object VALUES IN crm_custom_fields ---
+  * Companies
+  * Contacts
+  * Deals
+  * Leads
+
+--- ACTUAL ROWS IN crm_custom_fields ---
+ID   Org ID   Field Key                  Field Label               Target Object  Field Type   Req    Active
+---------------------------------------------------------------------------------------------------------
+1    1        budget_range               Budget Range              Leads          Dropdown     0      1     
+2    1        contract_start_date        Contract Start Date       Deals          Date         1      1     
+3    1        tax_registration_number    Tax Registration Number   Companies      Text         0      1     
+4    1        decision_maker_score       Decision Maker Score      Contacts       Number       0      1     
+
+Confirmation: Custom field target_object = 'Companies' is ALREADY present and configured with field 'tax_registration_number' (ID 3).
+
+================================================================================
+5. COMPANIES JAVASCRIPT AUDIT (admin/assets/js/companies.js)
+================================================================================
+
+Total Lines in companies.js: 2108
+
+--- EVERY LOCALSTORAGE USAGE ---
+Line   45: const saved = localStorage.getItem(ACCOUNT_VIEW_STORAGE_KEY);
+Line   50: console.warn("Unable to read accountView from localStorage:", e);
+Line   58: localStorage.setItem(ACCOUNT_VIEW_STORAGE_KEY, view);
+Line   60: console.warn("Unable to save accountView to localStorage:", e);
+Line   66: const saved = localStorage.getItem(DENSITY_STORAGE_KEY);
+Line   71: console.warn("Unable to read density from localStorage:", e);
+
+--- EVERY API / FETCH / AJAX USAGE ---
+Line    3: * Real MySQL Backend Integration via admin/api/companies.php.
+Line  105: fetch('api/companies.php?' + params.toString())
+Line  109: console.error('Failed to fetch companies:', res.message);
+Line  136: console.error('Companies fetch error:', err);
+Line  540: fetch('api/companies.php?action=' + actionName, {
+Line  596: fetch('api/companies.php?action=add_task', {
+Line 1002: fetch('api/companies.php?action=bulk_action', {
+Line 1021: fetch('api/companies.php?action=bulk_action', {
+Line 1062: // Fetch live drawer data from API
+Line 1063: fetch('api/companies.php?action=drawer_data&id=' + id)
+Line 1262: fetch('api/companies.php?action=archive&id=' + comp.id, { method: 'POST' })
+Line 1283: fetch('api/companies.php?action=delete&id=' + comp.id, { method: 'POST' })
+Line 1310: window.location.href = 'api/companies.php?' + params.toString();
+Line 1321: fetch('api/companies.php?action=import_csv', {
+Line 1354: fetch('api/companies.php?action=add_contact', {
+Line 1390: fetch('api/companies.php?action=create_deal', {
+Line 1429: fetch('api/companies.php?action=log_activity', {
+Line 1452: fetch('api/companies.php?action=toggle_task', {
+Line 1476: fetch('api/companies.php?action=delete_task', {
+Line 1498: fetch('api/companies.php?action=edit_task', {
+Line 1531: fetch('api/companies.php?action=add_note', {
+Line 1555: fetch('api/companies.php?action=edit_note', {
+Line 1575: fetch('api/companies.php?action=delete_note', {
+Line 1591: fetch('api/companies.php?action=toggle_pin_note', {
+
+--- EVERY MOCK / DEFAULT / INITIAL DATA USAGE ---
+Line    4: * Strictly 0 mock data, 100% MySQL source of truth.
+
+--- window.companiesApp INITIALIZATION ---
+Line  950: window.companiesApp = {
+
+--- IDENTIFIED FAKE / HARDCODED LOGIC ---
+1. Fake ID & Synthesized Metrics Generation (lines 2073-2099):
+   Generates client-side 'COMP-xxx', contactsCount: 3, openDealsCount: 1, openDealsValue: 24000, lastActivity: 'Just now', foundedYear: 2018.
+2. Fake Sub-Entity Stores in localStorage (lines 255-259):
+   companyNotesStore, companyTasksStore, companyContactsStore, companyDealsStore, companyActivityStore.
+3. Hardcoded Fallbacks in Details Drawer:
+   - Contacts Tab (lines 1488-1490): C-001 (Marcus Thompson), C-005 (David Vance), C-008 (Sarah Lin)
+   - Deals Tab (lines 1532-1533): D-01 (Enterprise Expansion), D-02 (Annual SLA Support Package)
+   - Activity Tab (lines 1594-1598): A-01 to A-05
+4. Hardcoded Owner Strings in HTML Dropdowns & Modals:
+   'Sarah Chen', 'James Wu', 'Olivia Martin' (in companies.php lines 172-174, 448-451, 505-508).
+5. Fake CRUD Operations:
+   - Archive (lines 1075): showCompaniesToast('Account archived (Frontend demo).')
+   - Delete (lines 1093): showCompaniesToast('Company deleted from frontend view.')
+6. Fake Export & Import:
+   - Export (lines 90-134): Pure client-side CSV Blob synthesis.
+   - Import (companies.php line 33): showCompaniesToast('Importing company sample data...') without file upload.
+
+================================================================================
+6. CURRENT COMPANY DATA
+================================================================================
+
+EXPLICIT CONFIRMATION:
+companies table DOES NOT EXIST in database nexflow_crm.
+No tables or records were created or modified during this audit.
+
+================================================================================
+7. IMPLEMENTATION DECISION
+================================================================================
+
+Feature              Existing DB Resource Reusable?  Schema Change Required?  Reason
+---------------------------------------------------------------------------------------------------------
+Company CRUD         None                 NO         YES (New table)          No existing table stores company accounts
+Owner                users                YES        NO                       users table stores active users; link via companies.owner_id
+Primary Contact      contacts             YES        NO                       contacts table stores contacts; link via companies.primary_contact_id
+Contacts             contacts             YES        NO                       Match on contacts.company_name = companies.name AND organization_id
+Deals                deals                YES        NO                       Match on deals.company = companies.name AND organization_id
+Tasks                tasks                YES        NO                       Polymorphic tasks with related_type = 'companies', related_id = companies.id
+Activities           team_activities      YES        NO                       Polymorphic activities with related_entity = 'companies', related_entity_id = companies.id
+Notes                team_notes           YES        NO                       Polymorphic notes with related_type = 'companies', related_id = companies.id, is_pinned supported
+Calendar / Meetings  calendar_events      YES        NO                       Polymorphic events with related_type = 'companies', related_id = companies.id
+Custom Fields        crm_custom_fields    YES        NO                       crm_custom_fields target_object = 'Companies' is already configured
+Permissions          permissions          YES        NO                       Permissions 12-16 (companies.view/create/edit/delete/export) already configured
+Tenant Isolation     organizations        YES        NO                       Enforce organization_id from session on all queries
+Import               admin/api/companies.php YES        NO (API endpoint)        Backend endpoint parses CSV and batch inserts to companies table
+Export               admin/api/companies.php YES        NO (API endpoint)        Backend endpoint queries live companies table and streams CSV
+KPI Cards            companies + deals    YES        NO (SQL queries)         SQL aggregate queries on companies & deals tables scoped by tenant
+
+================================================================================
+8. PROPOSED NEW COMPANIES TABLE (MINIMAL SCHEMA)
+================================================================================
+
+PROPOSED DDL (NOT EXECUTED):
+
+CREATE TABLE `companies` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) unsigned NOT NULL,
+  `company_code` varchar(50) DEFAULT NULL,
+  `name` varchar(150) NOT NULL,
+  `legal_name` varchar(150) DEFAULT NULL,
+  `domain` varchar(150) DEFAULT NULL,
+  `industry` varchar(100) DEFAULT NULL,
+  `company_size` varchar(50) DEFAULT NULL,
+  `annual_revenue` decimal(15,2) DEFAULT NULL,
+  `location` varchar(150) DEFAULT NULL,
+  `founded_year` smallint(4) unsigned DEFAULT NULL,
+  `linkedin` varchar(255) DEFAULT NULL,
+  `relationship` varchar(50) DEFAULT NULL,
+  `owner_id` int(10) unsigned DEFAULT NULL,
+  `primary_contact_id` int(10) unsigned DEFAULT NULL,
+  `source` varchar(50) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_by` int(10) unsigned NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_companies_org` (`organization_id`),
+  KEY `idx_companies_owner` (`owner_id`),
+  KEY `idx_companies_relationship` (`relationship`),
+  KEY `idx_companies_org_name` (`organization_id`, `name`),
+  KEY `idx_companies_primary_contact` (`primary_contact_id`),
+  CONSTRAINT `fk_companies_org` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_companies_owner` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_companies_primary_contact` FOREIGN KEY (`primary_contact_id`) REFERENCES `contacts` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+Column               Type                   Required?  UI Feature Using It                      Why Existing DB Cannot Provide It
+------------------------------------------------------------------------------------------------------------------------
+id                   int(10) unsigned       YES        Primary Key, links drawer, URL params    Unique entity identifier
+organization_id      int(10) unsigned       YES        Tenant isolation on all screens          Enforces multi-tenant data boundaries
+company_code         varchar(50)            NO         Badge display (COMP-000001)              CRM visual code matching CNT-, DEAL-, LEAD-
+name                 varchar(150)           YES        Table, Drawer header, Add/Edit form      Company title/brand name
+legal_name           varchar(150)           NO         Overview Tab legal name row              Full registered legal corporate name
+domain               varchar(150)           NO         Website link, copy button, table         Domain/website URL for web visits
+industry             varchar(100)           NO         Industry column, filter popover, drawer  Categorizes market/industry sector
+company_size         varchar(50)            NO         Table subtitle, Add/Edit size select     Employee size bracket (e.g. 100-250 employees)
+annual_revenue       decimal(15,2)          NO         Overview Tab revenue row, Add/Edit form  Numeric annual financial turnover ($M)
+location             varchar(150)           NO         Overview Tab, Table subtitle, Add/Edit   City, State / Country geographic location
+founded_year         smallint(4) unsigned   NO         Overview Tab founded year row            Year company was founded
+linkedin             varchar(255)           NO         Overview Tab clickable LinkedIn URL      Corporate LinkedIn profile link
+relationship         varchar(50)            NO         Relationship badge, KPI cards, filter    Customer / Prospect / Partner / Inactive state
+owner_id             int(10) unsigned       NO         Owner avatar & name, filter, Add/Edit    FK to users(id) representing Account Owner
+primary_contact_id   int(10) unsigned       NO         Primary Contact avatar, name, title      FK to contacts(id) for key contact
+source               varchar(50)            NO         Overview Tab source row                  Acquisition channel (Inbound, Referral, etc.)
+is_active            tinyint(1)             YES        Archive account action, Inactive KPI     Soft-deletion / archival state flag
+created_by           int(10) unsigned       YES        Audit trail & creator tracking           Session user who added company
+created_at           datetime               YES        Overview Created Date, New Companies KPI Creation timestamp
+updated_at           datetime               YES        Audit trail & mutation tracking          Last update timestamp
+
+================================================================================
+9. DUPLICATE / BREAKING-CHANGE CHECK
+================================================================================
+
+[CHECK 1] Duplicate Companies Table Check:
+  * `companies` table does not exist in nexflow_crm. No duplicate table will be created.
+[CHECK 2] Existing Related Tables Reuse Check:
+  * contacts, deals, tasks, team_activities, team_notes, calendar_events, projects, users, organizations
+    will ALL be 100% reused without creating duplicate tables.
+[CHECK 3] Zero Schema Changes on Existing Core Tables:
+  * contacts table: REUSED AS-IS (links via contacts.company_name).
+  * deals table: REUSED AS-IS (links via deals.company).
+  * tasks table: REUSED AS-IS (polymorphic related_type = 'companies').
+  * team_activities table: REUSED AS-IS (polymorphic related_entity = 'companies').
+  * team_notes table: REUSED AS-IS (polymorphic related_type = 'companies').
+  * calendar_events table: REUSED AS-IS (polymorphic related_type = 'companies').
+[CHECK 4] Permissions Reuse Check:
+  * All 5 permissions (IDs 12-16) and role assignments already exist in database.
+    No new permission records or role_permission rows need to be created.
+[CHECK 5] Custom Fields Reuse Check:
+  * target_object = 'Companies' is already registered in crm_custom_fields.
+[CHECK 6] Authentication & Multi-Tenant Scoping Reuse Check:
+  * Existing nexflow_current_user() and organization_id session isolation will be enforced on every endpoint.
+[CHECK 7] UI/UX & CSS Integrity:
+  * Zero modifications to admin/assets/css/companies.css or existing visual layout, modals, drawers, or table classes.
+
+================================================================================
+10. FINAL AUDIT STATUS
+================================================================================
+
+STATUS: AUDIT COMPLETE — NO IMPLEMENTATION PERFORMED.

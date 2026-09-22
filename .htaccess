@@ -1,0 +1,8 @@
+# NexFlow CRM - Root Apache Configuration
+Options -Indexes
+DirectoryIndex index.php login.php
+
+# Block direct access to sensitive file extensions
+<FilesMatch "\.(sql|log|env|ini|bak|backup|jsonl|md|tmp|git.*)$">
+    Require all denied
+</FilesMatch>

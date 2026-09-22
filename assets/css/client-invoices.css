@@ -1,0 +1,171 @@
+﻿/* ==========================================================================
+   NexFlow CRM — Client Portal Invoices Page Styles
+   Scoped specifically for client-invoices.php
+   ========================================================================== */
+
+/* Invoices Grid Layout */
+.client-invoices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.client-invoice-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.client-invoice-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+}
+
+.client-invoice-number {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748B;
+  background-color: #F1F5F9;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  display: inline-block;
+}
+
+/* Billing Grid */
+.client-invoice-billing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+/* Pricing Summary Box */
+.client-invoice-pricing-box {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.client-invoice-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 13px;
+  color: #475569;
+}
+
+.client-invoice-summary-row.total {
+  border-top: 1px dashed #CBD5E1;
+  margin-top: 6px;
+  padding-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.client-invoice-summary-row.balance {
+  background-color: #FEF2F2;
+  border: 1px solid #FCA5A5;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-top: 8px;
+  font-weight: 700;
+  color: #991B1B;
+}
+
+/* Document Box */
+.client-invoice-doc-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-top: 16px;
+}
+
+/* Timeline */
+.client-invoice-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.client-invoice-timeline-item {
+  display: flex;
+  gap: 10px;
+  font-size: 12.5px;
+  align-items: flex-start;
+}
+
+.client-invoice-timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2563EB;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+/* Invoice Details Drawer Tab Navigation Fix */
+#clientInvoiceDrawer .client-portal-drawer-tabs {
+  padding: 0 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#clientInvoiceDrawer .client-portal-drawer-tabs::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+  width: 0;
+  height: 0;
+}
+
+#clientInvoiceDrawer .client-portal-drawer-tab {
+  flex: 1;
+  text-align: center;
+  padding: 11px 10px;
+  font-size: 12.5px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* Mobile responsive fixes */
+@media (max-width: 640px) {
+  .client-invoices-grid,
+  .client-invoice-billing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #clientInvoiceDrawer .client-portal-drawer-tabs {
+    padding: 0 8px;
+  }
+
+  #clientInvoiceDrawer .client-portal-drawer-tab {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+}
+

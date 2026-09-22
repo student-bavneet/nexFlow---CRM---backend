@@ -1,0 +1,572 @@
+﻿/**
+ * NexFlow CRM - Universal CRM Onboarding Wizard Stylesheet
+ * 100% Frontend Presentation & UI Layout
+ */
+
+.onboarding-body {
+  background-color: var(--bg-main, #F8FAFC);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-heading, #0F172A);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.ob-header-nav {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--border-card, #E2E8F0);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ob-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--primary, #2563EB);
+  text-decoration: none;
+}
+
+.ob-brand-icon {
+  width: 32px;
+  height: 32px;
+  background-color: var(--primary, #2563EB);
+  color: #FFFFFF;
+  border-radius: var(--radius-md, 6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.ob-stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--border-card, #E2E8F0);
+  padding: 14px 32px;
+  overflow-x: auto;
+  justify-content: center;
+}
+
+.ob-step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted, #64748B);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.ob-step-item.active {
+  background-color: #EFF6FF;
+  color: var(--primary, #2563EB);
+}
+
+.ob-step-item.completed {
+  color: #10B981;
+}
+
+.ob-step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #E2E8F0;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ob-step-item.active .ob-step-num {
+  background-color: var(--primary, #2563EB);
+  color: #FFFFFF;
+}
+
+.ob-step-item.completed .ob-step-num {
+  background-color: #10B981;
+  color: #FFFFFF;
+}
+
+.ob-step-divider {
+  width: 24px;
+  height: 1px;
+  background-color: #E2E8F0;
+  flex-shrink: 0;
+}
+
+.ob-main-container {
+  max-width: 960px;
+  width: 100%;
+  margin: 32px auto;
+  padding: 0 24px;
+  flex: 1;
+}
+
+.ob-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card, #E2E8F0);
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  padding: 36px;
+}
+
+.ob-step-pane {
+  display: none;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.ob-step-pane.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ob-pane-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.ob-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-heading, #0F172A);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+
+.ob-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary, #475569);
+  margin: 0;
+}
+
+/* Step 1: Form Grid */
+.ob-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.ob-form-grid.full-width {
+  grid-template-columns: 1fr;
+}
+
+.ob-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ob-field-group.span-2 {
+  grid-column: span 2 / span 2;
+}
+
+.ob-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-heading, #0F172A);
+}
+
+.ob-logo-dropzone {
+  border: 2px dashed #CBD5E1;
+  border-radius: var(--radius-md, 8px);
+  padding: 20px;
+  text-align: center;
+  background-color: #F8FAFC;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.ob-logo-dropzone:hover {
+  border-color: var(--primary, #2563EB);
+  background-color: #EFF6FF;
+}
+
+.ob-logo-preview {
+  width: 54px;
+  height: 54px;
+  border-radius: 8px;
+  object-fit: cover;
+  background-color: #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #64748B;
+}
+
+/* Step 2: Industry Grid */
+.ob-industry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ob-industry-card {
+  border: 1px solid var(--border-card, #E2E8F0);
+  border-radius: var(--radius-md, 8px);
+  padding: 16px;
+  background-color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.ob-industry-card:hover {
+  border-color: var(--primary, #2563EB);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+  transform: translateY(-2px);
+}
+
+.ob-industry-card.selected {
+  border: 2px solid var(--primary, #2563EB);
+  background-color: #F8FAFC;
+}
+
+.ob-industry-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ob-industry-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.ob-industry-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #CBD5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ob-industry-card.selected .ob-industry-check {
+  background-color: var(--primary, #2563EB);
+  border-color: var(--primary, #2563EB);
+  color: #FFFFFF;
+}
+
+.ob-industry-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-heading, #0F172A);
+  margin: 0;
+}
+
+.ob-industry-desc {
+  font-size: 12px;
+  color: var(--text-secondary, #475569);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Step 3: Module Selector Grid */
+.ob-module-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ob-module-card {
+  border: 1px solid var(--border-card, #E2E8F0);
+  border-radius: var(--radius-md, 8px);
+  padding: 16px;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.18s ease;
+}
+
+.ob-module-card.selected {
+  border-color: var(--primary, #2563EB);
+  background-color: #F8FAFC;
+}
+
+.ob-module-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ob-module-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background-color: #F1F5F9;
+  color: var(--primary, #2563EB);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.ob-module-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-heading, #0F172A);
+  margin: 0;
+}
+
+.ob-module-desc {
+  font-size: 11.5px;
+  color: var(--text-muted, #64748B);
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Customization Sub-Tabs for Step 4 */
+.ob-cust-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border-card, #E2E8F0);
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+
+.ob-cust-tab {
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted, #64748B);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.ob-cust-tab:hover {
+  color: var(--primary, #2563EB);
+}
+
+.ob-cust-tab.active {
+  color: var(--primary, #2563EB);
+  border-bottom-color: var(--primary, #2563EB);
+}
+
+.ob-cust-pane {
+  display: none;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.ob-cust-pane.active {
+  display: block;
+}
+
+/* Footer Actions */
+.ob-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-divider, #F1F5F9);
+}
+
+.btn-ob-next {
+  background-color: var(--primary, #2563EB);
+  color: #FFFFFF;
+  padding: 10px 24px;
+  border-radius: var(--radius-md, 6px);
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.18s ease;
+}
+
+.btn-ob-next:hover {
+  background-color: #1D4ED8;
+}
+
+.btn-ob-back {
+  background-color: #F1F5F9;
+  color: #475569;
+  padding: 10px 20px;
+  border-radius: var(--radius-md, 6px);
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-ob-back:hover:not(:disabled) {
+  background-color: #E2E8F0;
+}
+
+.btn-ob-back:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .ob-industry-grid { grid-template-columns: repeat(2, 1fr); }
+  .ob-module-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .ob-form-grid { grid-template-columns: 1fr; }
+  .ob-field-group.span-2 { grid-column: span 1; }
+  .ob-industry-grid { grid-template-columns: 1fr; }
+  .ob-module-grid { grid-template-columns: 1fr; }
+  .ob-stepper { display: none; }
+}
+
+/* Custom Module Modal Backdrop & Window */
+.ob-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeInModal 0.2s ease-out;
+}
+
+.ob-modal-dialog {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  max-width: 480px;
+  overflow: hidden;
+  animation: scaleUpModal 0.2s ease-out;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUpModal {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.ob-modal-header {
+  padding: 20px 24px 16px 24px;
+  border-bottom: 1px solid var(--border-divider, #F1F5F9);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.ob-modal-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-heading, #0F172A);
+  margin: 0 0 2px 0;
+}
+
+.ob-modal-subtitle {
+  font-size: 12.5px;
+  color: var(--text-muted, #64748B);
+  margin: 0;
+}
+
+.ob-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  border-radius: 4px;
+}
+
+.ob-modal-close:hover {
+  color: var(--text-heading, #0F172A);
+}
+
+.ob-modal-body {
+  padding: 20px 24px;
+}
+
+.ob-modal-footer {
+  padding: 16px 24px;
+  background-color: #F8FAFC;
+  border-top: 1px solid var(--border-divider, #F1F5F9);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.ob-icon-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.ob-icon-option {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  background: #FFF;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ob-icon-option:hover {
+  border-color: var(--primary, #2563EB);
+  background: #EFF6FF;
+}
+
+.ob-icon-option.active {
+  border-color: var(--primary, #2563EB);
+  background: #EFF6FF;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+
+

@@ -1,0 +1,311 @@
+﻿/* ==========================================
+   NexFlow CRM — TABLE COLUMN MANAGEMENT SYSTEM
+   Hide/Show Columns, Drag-and-Drop Reordering,
+   & Layout Matching Leads Page Reference
+   ========================================== */
+
+/* Page & Shell Containment (Fixes Page-Level Horizontal Scroll) */
+html, body {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+/* Table Wrapper Containment */
+.crm-table-wrapper,
+.companies-table-wrapper,
+.team-table-wrapper,
+.settings-table-wrapper,
+.contacts-table-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Base Table Sizing: JS (recalculateTableSizing) controls width/min-width via inline styles.
+   CSS only sets collapse/alignment — no width override that would conflict with JS. */
+table.crm-table,
+table.companies-table,
+table.team-table,
+table.reports-table,
+table.reports-mini-table {
+  min-width: 0;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* Completely Hidden Column Cells */
+th.is-column-hidden,
+td.is-column-hidden {
+  display: none !important;
+}
+
+/* ==========================================
+   SEMANTIC COLUMN PREFERRED MINIMUM WIDTHS
+   ========================================== */
+
+/* Compact Fixed/Minimum Columns */
+[data-column-id="checkbox"] { width: 40px; min-width: 40px; max-width: 52px; text-align: center; }
+[data-column-id="rank"] { width: 60px; min-width: 60px; text-align: center; }
+[data-column-id="score"] { min-width: 90px; }
+[data-column-id="status"],
+[data-column-id="relationship"],
+[data-column-id="stage"],
+[data-column-id="workload-status"],
+[data-column-id="required"],
+[data-column-id="priority"] { min-width: 110px; }
+
+[data-column-id="actions"],
+[data-column-id="action"] { min-width: 150px; text-align: center; }
+
+/* Flexible Data Columns */
+[data-column-id="lead"],
+[data-column-id="contact"],
+[data-column-id="company"],
+[data-column-id="team-member"],
+[data-column-id="representative"],
+[data-column-id="name"] { min-width: 180px; }
+
+[data-column-id="contact-info"] { min-width: 200px; }
+[data-column-id="owner"],
+[data-column-id="assignee"],
+[data-column-id="primary-contact"] { min-width: 130px; }
+
+[data-column-id="value"],
+[data-column-id="pipeline-value"],
+[data-column-id="revenue"],
+[data-column-id="quota-target"],
+[data-column-id="total-value"],
+[data-column-id="revenue-won"],
+[data-column-id="open-deals"],
+[data-column-id="deals"] { min-width: 110px; }
+
+[data-column-id="source"],
+[data-column-id="industry"],
+[data-column-id="role"],
+[data-column-id="topic"],
+[data-column-id="target-object"],
+[data-column-id="field-type"] { min-width: 110px; }
+
+[data-column-id="last-activity"],
+[data-column-id="last-interaction"],
+[data-column-id="last-active"],
+[data-column-id="close-date"] { min-width: 130px; }
+
+[data-column-id="subject"],
+[data-column-id="field-label"],
+[data-column-id="deal-name"],
+[data-column-id="deal"],
+[data-column-id="module"],
+[data-column-id="risk-reason"] { min-width: 170px; }
+
+/* Table Toolbar "Columns" Dropdown Manager */
+.table-columns-dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.table-columns-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.table-columns-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 250;
+  width: 260px;
+  min-width: 240px;
+  max-width: 300px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card, #E2E8F0);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  padding: 6px 0 0;
+  display: none;
+  flex-direction: column;
+  animation: tableColumnsDropdownIn 0.15s ease-out;
+}
+
+.table-columns-dropdown-menu.show {
+  display: flex;
+}
+
+@keyframes tableColumnsDropdownIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.table-columns-dropdown-header {
+  padding: 8px 12px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted, #64748B);
+  border-bottom: 1px solid var(--border-divider, #F1F5F9);
+}
+
+.table-columns-list {
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+/* Column Option Row in Dropdown */
+.table-column-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  margin: 1px 4px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-heading, #1E293B);
+  cursor: grab;
+  user-select: none;
+  background-color: #FFFFFF;
+  border: 1px solid transparent;
+  transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
+}
+
+.table-column-option:hover {
+  background-color: #F8FAFC;
+}
+
+.table-column-option.is-dragging {
+  opacity: 0.4;
+  background-color: #F1F5F9;
+  border: 1px dashed var(--primary, #2563EB);
+  cursor: grabbing;
+}
+
+.table-column-option.drop-target-above {
+  border-top: 2px solid var(--primary, #2563EB) !important;
+  background-color: #EFF6FF;
+}
+
+.table-column-option.drop-target-below {
+  border-bottom: 2px solid var(--primary, #2563EB) !important;
+  background-color: #EFF6FF;
+}
+
+.table-column-option.is-protected {
+  cursor: default;
+  opacity: 0.85;
+  background-color: #F8FAFC;
+}
+
+.table-column-drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94A3B8;
+  cursor: grab;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  user-select: none;
+  transition: color 0.12s ease;
+}
+
+.table-column-option.is-protected .table-column-drag-handle {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.table-column-option:not(.is-protected):hover .table-column-drag-handle {
+  color: var(--primary, #2563EB);
+}
+
+.table-column-option input[type="checkbox"] {
+  accent-color: var(--primary, #2563EB);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.table-column-option.is-protected input[type="checkbox"] {
+  cursor: not-allowed;
+}
+
+.table-column-label-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-column-lock-icon {
+  margin-left: auto;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.table-column-move-btns {
+  display: flex;
+  gap: 2px;
+  margin-left: 4px;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.table-column-option:hover .table-column-move-btns,
+.table-column-option:focus-within .table-column-move-btns {
+  opacity: 1;
+}
+
+.table-column-move-btn {
+  background: none;
+  border: 1px solid var(--border-divider, #E2E8F0);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 10px;
+  color: var(--text-muted, #64748B);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.table-column-move-btn:hover {
+  background-color: var(--primary, #2563EB);
+  color: #FFFFFF;
+  border-color: var(--primary, #2563EB);
+}
+
+/* Footer Actions */
+.table-columns-dropdown-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--border-divider, #F1F5F9);
+  background-color: #F8FAFC;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.table-columns-footer-btn {
+  background: none;
+  border: none;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--primary, #2563EB);
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 4px;
+  transition: background-color 0.12s ease;
+}
+
+.table-columns-footer-btn:hover {
+  background-color: rgba(37, 99, 235, 0.08);
+}
+

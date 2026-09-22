@@ -1,0 +1,545 @@
+{
+    "users": {
+        "TM-001": {
+            "full_access": true,
+            "permissions": {
+                "dashboard": [
+                    "view"
+                ],
+                "leads": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "pipeline": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ],
+                "contacts": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "companies": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "subscriptions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "expenses": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "invoices": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export",
+                    "download",
+                    "send"
+                ],
+                "contracts": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export",
+                    "download",
+                    "send"
+                ],
+                "estimate-requests": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export",
+                    "download",
+                    "send"
+                ],
+                "tasks": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ],
+                "calendar": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ],
+                "inbox": [
+                    "view",
+                    "create",
+                    "send"
+                ],
+                "reports": [
+                    "view",
+                    "export"
+                ],
+                "team": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "manage"
+                ],
+                "settings": [
+                    "view",
+                    "edit"
+                ],
+                "help": [
+                    "view"
+                ]
+            }
+        },
+        "TM-002": {
+            "full_access": false,
+            "permissions": {
+                "dashboard": [
+                    "view"
+                ],
+                "leads": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "pipeline": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ],
+                "contacts": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "companies": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "subscriptions": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "expenses": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "invoices": [
+                    "view",
+                    "create",
+                    "edit",
+                    "download",
+                    "send"
+                ],
+                "contracts": [
+                    "view",
+                    "create",
+                    "edit",
+                    "download",
+                    "send"
+                ],
+                "estimate-requests": [
+                    "view",
+                    "create",
+                    "edit",
+                    "download",
+                    "send"
+                ],
+                "tasks": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ],
+                "calendar": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ],
+                "inbox": [
+                    "view",
+                    "create",
+                    "send"
+                ],
+                "reports": [
+                    "view",
+                    "export"
+                ],
+                "team": [
+                    "view"
+                ],
+                "settings": [
+                    "view"
+                ],
+                "help": [
+                    "view"
+                ]
+            }
+        },
+        "TM-003": {
+            "full_access": false,
+            "permissions": {
+                "dashboard": [
+                    "view"
+                ],
+                "leads": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "pipeline": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "contacts": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "companies": [
+                    "view"
+                ],
+                "tasks": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "calendar": [
+                    "view",
+                    "create"
+                ],
+                "inbox": [
+                    "view",
+                    "send"
+                ],
+                "help": [
+                    "view"
+                ]
+            }
+        },
+        "TM-004": {
+            "full_access": false,
+            "permissions": {
+                "dashboard": [
+                    "view"
+                ],
+                "leads": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "pipeline": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "contacts": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "companies": [
+                    "view"
+                ],
+                "tasks": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "calendar": [
+                    "view",
+                    "create"
+                ],
+                "inbox": [
+                    "view",
+                    "send"
+                ],
+                "help": [
+                    "view"
+                ]
+            }
+        },
+        "TM-005": {
+            "full_access": true,
+            "permissions": {
+                "dashboard": [
+                    "view"
+                ],
+                "leads": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "pipeline": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ],
+                "contacts": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "companies": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "subscriptions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "expenses": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export"
+                ],
+                "invoices": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export",
+                    "download",
+                    "send"
+                ],
+                "contracts": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export",
+                    "download",
+                    "send"
+                ],
+                "estimate-requests": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "export",
+                    "download",
+                    "send"
+                ],
+                "tasks": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ],
+                "calendar": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ],
+                "inbox": [
+                    "view",
+                    "create",
+                    "send"
+                ],
+                "reports": [
+                    "view",
+                    "export"
+                ],
+                "team": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete",
+                    "manage"
+                ],
+                "settings": [
+                    "view",
+                    "edit"
+                ],
+                "help": [
+                    "view"
+                ]
+            }
+        },
+        "TM-006": {
+            "full_access": false,
+            "permissions": {
+                "dashboard": [
+                    "view"
+                ],
+                "leads": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "pipeline": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "contacts": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "companies": [
+                    "view"
+                ],
+                "tasks": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "calendar": [
+                    "view",
+                    "create"
+                ],
+                "inbox": [
+                    "view",
+                    "send"
+                ],
+                "help": [
+                    "view"
+                ]
+            }
+        },
+        "TM-007": {
+            "full_access": false,
+            "permissions": {
+                "dashboard": [
+                    "view"
+                ],
+                "leads": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "pipeline": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "contacts": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "companies": [
+                    "view"
+                ],
+                "tasks": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "calendar": [
+                    "view",
+                    "create"
+                ],
+                "inbox": [
+                    "view",
+                    "send"
+                ],
+                "help": [
+                    "view"
+                ]
+            }
+        },
+        "TM-008": {
+            "full_access": false,
+            "permissions": {
+                "dashboard": [
+                    "view"
+                ],
+                "leads": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "pipeline": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "contacts": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "companies": [
+                    "view"
+                ],
+                "tasks": [
+                    "view",
+                    "create",
+                    "edit"
+                ],
+                "calendar": [
+                    "view",
+                    "create"
+                ],
+                "inbox": [
+                    "view",
+                    "send"
+                ],
+                "help": [
+                    "view"
+                ]
+            }
+        },
+        "TM-999": {
+            "full_access": false,
+            "permissions": {
+                "leads": [
+                    "view",
+                    "create"
+                ],
+                "invoices": [
+                    "view",
+                    "download"
+                ]
+            }
+        }
+    }
+}
